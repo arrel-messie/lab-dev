@@ -136,6 +136,19 @@ const styles = `
         color: var(--text-color);
     }
 
+    /* Items List Styles */
+    .items-list {
+        margin-top: 15px;
+        display: grid;
+        gap: 15px;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+
+    .items-list .description-card {
+        margin: 0;
+        background: var(--sidebar-background);
+    }
+
     /* Dark Mode */
     @media (prefers-color-scheme: dark) {
         :root {
