@@ -1,2 +1,0 @@
-#init design pattern project
-

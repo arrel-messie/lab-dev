@@ -1,1 +1,0 @@
-#init bash reository
