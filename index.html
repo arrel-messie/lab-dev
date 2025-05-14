@@ -464,7 +464,68 @@
                 gap: 1rem;
             }
         }
+    
+    <style>
+        .expansion-panel {
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .expansion-header {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            cursor: pointer;
+            background-color: var(--light-gray);
+            transition: background-color 0.3s ease;
+        }
+
+        .expansion-header:hover {
+            background-color: var(--medium-gray);
+            color: white;
+        }
+
+        .expansion-header svg {
+            margin-right: 1rem;
+            width: 24px;
+            height: 24px;
+        }
+
+        .expansion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: var(--background-color);
+        }
+
+        .expansion-content.active {
+            max-height: 500px;
+            padding: 1rem;
+        }
+
+        .expansion-toggle {
+            display: none;
+        }
+
+        .expansion-toggle:checked + .expansion-header + .expansion-content {
+            max-height: 500px;
+            padding: 1rem;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .skill-item:last-child {
+            border-bottom: none;
+        }
     </style>
+</style>
 </head>
 <body>
     <header>
