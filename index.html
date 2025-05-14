@@ -6,18 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Technique</title>
     <style>
-    /* Variables globales */
     :root {
-        --primary-color: #333333;
-        --secondary-color: #0071e3;
+        --sidebar-width: 260px;
+        --header-height: 50px;
         --background-color: #ffffff;
-        --light-gray: #f5f5f7;
-        --medium-gray: #86868b;
-        --dark-gray: #1d1d1f;
-        --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        --sidebar-background: #f5f5f7;
+        --text-color: #1d1d1f;
+        --border-color: #e2e2e2;
+        --accent-color: #007AFF;
+        --hover-color: #f0f0f0;
+        --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
 
-    /* Reset CSS */
     * {
         margin: 0;
         padding: 0;
@@ -26,725 +26,555 @@
 
     body {
         font-family: var(--font-family);
-        background-color: var(--background-color);
-        color: var(--primary-color);
-        line-height: 1.6;
-        -webkit-font-smoothing: antialiased;
-    }
-
-    /* En-tête */
-    header {
-        background-color: var(--background-color);
-        padding: 2rem 0;
-        text-align: center;
-        border-bottom: 1px solid rgba(0,0,0,0.1);
-    }
-
-    .profile-container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 0 1.5rem;
-    }
-
-    .profile-name {
-        font-size: 2.5rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-        color: var(--dark-gray);
-    }
-
-    .profile-title {
-        font-size: 1.5rem;
-        color: var(--medium-gray);
-        margin-bottom: 1.5rem;
-    }
-
-    /* Contenu principal */
-    main {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 2rem 1rem;
-    }
-
-    .section-title {
-        font-size: 2rem;
-        font-weight: 600;
-        margin-bottom: 2rem;
-        text-align: center;
-        color: var(--dark-gray);
-    }
-
-    /* Grille de compétences */
-    .tech-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
-        padding: 20px;
-    }
-
-    .tech-category {
-        background: var(--background-color);
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        color: var(--text-color);
+        line-height: 1.5;
+        height: 100vh;
+        display: flex;
         overflow: hidden;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .tech-category:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    /* Sidebar */
+    .sidebar {
+        width: var(--sidebar-width);
+        height: 100vh;
+        background: var(--sidebar-background);
+        border-right: 1px solid var(--border-color);
+        overflow-y: auto;
+        flex-shrink: 0;
     }
 
-    .category-header {
-        background: var(--secondary-color);
+    .sidebar-header {
+        padding: 15px;
+        font-size: 1.1em;
+        font-weight: 500;
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 0;
+        background: var(--sidebar-background);
+        z-index: 1;
+    }
+
+    .folder-list {
+        list-style: none;
+    }
+
+    .folder-item {
+        padding: 8px 15px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.95em;
+    }
+
+    .folder-item:hover {
+        background: var(--hover-color);
+    }
+
+    .folder-item.active {
+        background: var(--accent-color);
         color: white;
-        padding: 15px 20px;
+    }
+
+    /* Main Content */
+    .main-content {
+        flex: 1;
+        height: 100vh;
+        overflow-y: auto;
+        background: var(--background-color);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content-header {
+        height: var(--header-height);
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        position: sticky;
+        top: 0;
+        background: var(--background-color);
+        z-index: 1;
+    }
+
+    .content-title {
         font-size: 1.2em;
         font-weight: 500;
     }
 
-    .category-content {
+    .content-body {
         padding: 20px;
+        flex: 1;
     }
 
-    .tech-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .tech-item {
-        padding: 10px 0;
-        border-bottom: 1px solid var(--light-gray);
-        display: flex;
-        align-items: center;
-    }
-
-    .tech-item:last-child {
-        border-bottom: none;
-    }
-
-    .tech-item::before {
-        content: "•";
-        color: var(--secondary-color);
-        font-weight: bold;
-        margin-right: 10px;
-    }
-
-    .description-box {
-        background: var(--light-gray);
-        padding: 15px;
-        margin-top: 15px;
+    .description-card {
+        background: var(--background-color);
+        border: 1px solid var(--border-color);
         border-radius: 6px;
-        font-size: 0.9em;
-        color: var(--dark-gray);
+        padding: 15px;
+        margin-bottom: 15px;
     }
 
-    .description-box h4 {
-        margin: 0 0 8px 0;
-        color: var(--secondary-color);
-        font-size: 1em;
+    .description-title {
+        font-size: 1.1em;
+        font-weight: 500;
+        margin-bottom: 10px;
+        color: var(--accent-color);
     }
 
-    /* Mode sombre */
+    .description-text {
+        font-size: 0.95em;
+        color: var(--text-color);
+    }
+
+    /* Dark Mode */
     @media (prefers-color-scheme: dark) {
         :root {
-            --background-color: #000000;
-            --light-gray: #1d1d1f;
-            --dark-gray: #f5f5f7;
-            --primary-color: #f5f5f7;
-        }
-
-        .tech-category {
-            background: var(--dark-gray);
-        }
-
-        .description-box {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .tech-item {
-            border-bottom-color: rgba(255, 255, 255, 0.1);
+            --background-color: #1c1c1e;
+            --sidebar-background: #2c2c2e;
+            --text-color: #ffffff;
+            --border-color: #3d3d3d;
+            --hover-color: #3a3a3c;
         }
     }
 
-    /* Responsive */
+    /* Responsive Design */
     @media (max-width: 768px) {
-        .tech-grid {
-            grid-template-columns: 1fr;
-            padding: 10px;
+        .sidebar {
+            width: 100%;
+            position: fixed;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
         }
 
-        .profile-name {
-            font-size: 2rem;
+        .sidebar.show {
+            transform: translateX(0);
         }
 
-        .profile-title {
-            font-size: 1.2rem;
+        .main-content {
+            width: 100%;
         }
 
-        .section-title {
-            font-size: 1.7rem;
+        .menu-toggle {
+            display: block;
         }
     }
 </style>
 </head>
 <body>
-    <header>
-        <div class="profile-container">
-            <h1 class="profile-name">Portfolio Technique</h1>
-            <p class="profile-title">Compétences et Projets</p>
-        </div>
-    </header>
-    <main>
-        <h2 class="section-title">Mes Compétences</h2>
-        <div class="tech-grid">
-        <div class="tech-category">
-            <div class="category-header">
-                Langages de programmation
-            </div>
-            <div class="category-content">
-    
-            <div class="description-box">
-                <h4>À propos</h4>
-                <p>Description for Langages de programmation</p>
-            </div>
-        <ul class="tech-list">
-                <li class="tech-item">
-                    Java
-                    
-                        <div class="description-box">
-                            <p>Description for Java</p>
-                        </div>
-                    
+    <aside class="sidebar">
+        <div class="sidebar-header">Portfolio Technique</div>
+        <ul class="folder-list">
+                <li class="folder-item" data-category="Langages de programmation">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 3a1 1 0 0 1 1-1h3l1 1h7a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3z" fill="currentColor"/>
+                    </svg>
+                    Langages de programmation
                 </li>
             
-                <li class="tech-item">
-                    JavaScript
-                    
-                        <div class="description-box">
-                            <p>Description for JavaScript</p>
-                        </div>
-                    
+                <li class="folder-item" data-category="Frameworks">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 3a1 1 0 0 1 1-1h3l1 1h7a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3z" fill="currentColor"/>
+                    </svg>
+                    Frameworks
                 </li>
             
-                <li class="tech-item">
-                    Python
-                    
-                        <div class="description-box">
-                            <p>Description for Python</p>
-                        </div>
-                    
+                <li class="folder-item" data-category="Bibliothèques">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 3a1 1 0 0 1 1-1h3l1 1h7a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3z" fill="currentColor"/>
+                    </svg>
+                    Bibliothèques
                 </li>
             
-                <li class="tech-item">
-                    Shell
-                    
-                        <div class="description-box">
-                            <p>Description for Shell</p>
-                        </div>
-                    
+                <li class="folder-item" data-category="Outils de Test  et qualité logiciel">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 3a1 1 0 0 1 1-1h3l1 1h7a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3z" fill="currentColor"/>
+                    </svg>
+                    Outils de Test  et qualité logiciel
                 </li>
             
-                <li class="tech-item">
-                    C++
-                    
-                        <div class="description-box">
-                            <p>Description for C++</p>
-                        </div>
-                    
+                <li class="folder-item" data-category="Outils dev sec ops">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 3a1 1 0 0 1 1-1h3l1 1h7a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3z" fill="currentColor"/>
+                    </svg>
+                    Outils dev sec ops
                 </li>
             
-                <li class="tech-item">
-                    Scala
-                    
-                        <div class="description-box">
-                            <p>Description for Scala</p>
-                        </div>
-                    
+                <li class="folder-item" data-category="Outils cloud">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 3a1 1 0 0 1 1-1h3l1 1h7a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3z" fill="currentColor"/>
+                    </svg>
+                    Outils cloud
                 </li>
             
-                <li class="tech-item">
-                    PL/SQL
-                    
-                        <div class="description-box">
-                            <p>Description for PL/SQL</p>
-                        </div>
-                    
+                <li class="folder-item" data-category="Outils de Modelisation">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 3a1 1 0 0 1 1-1h3l1 1h7a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3z" fill="currentColor"/>
+                    </svg>
+                    Outils de Modelisation
                 </li>
             
-                <li class="tech-item">
-                    KSQL
-                    
-                        <div class="description-box">
-                            <p>Description for KSQL</p>
-                        </div>
-                    
-                </li>
-            </ul>
-            </div>
-        </div>
-    
-        <div class="tech-category">
-            <div class="category-header">
-                Frameworks
-            </div>
-            <div class="category-content">
-    
-            <div class="description-box">
-                <h4>À propos</h4>
-                <p>Description for Frameworks</p>
-            </div>
-        <ul class="tech-list">
-                <li class="tech-item">
-                    Spring
-                    
-                        <div class="description-box">
-                            <p>Description for Spring</p>
-                        </div>
-                    
+                <li class="folder-item" data-category="Base de données et moteurs de recherche">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 3a1 1 0 0 1 1-1h3l1 1h7a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3z" fill="currentColor"/>
+                    </svg>
+                    Base de données et moteurs de recherche
                 </li>
             
-                <li class="tech-item">
-                    Micronaut
-                    
-                        <div class="description-box">
-                            <p>Description for Micronaut</p>
-                        </div>
-                    
+                <li class="folder-item" data-category="Architectures logiciel">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 3a1 1 0 0 1 1-1h3l1 1h7a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3z" fill="currentColor"/>
+                    </svg>
+                    Architectures logiciel
                 </li>
             
-                <li class="tech-item">
-                    Quarkus
-                    
-                        <div class="description-box">
-                            <p>Description for Quarkus</p>
-                        </div>
-                    
+                <li class="folder-item" data-category="Principes de l'ingénierie  logiciel">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 3a1 1 0 0 1 1-1h3l1 1h7a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3z" fill="currentColor"/>
+                    </svg>
+                    Principes de l'ingénierie  logiciel
                 </li>
             
-                <li class="tech-item">
-                    Django
-                    
-                        <div class="description-box">
-                            <p>Description for Django</p>
-                        </div>
-                    
-                </li>
-            
-                <li class="tech-item">
-                    Angular
-                    
-                        <div class="description-box">
-                            <p>Description for Angular</p>
-                        </div>
-                    
-                </li>
-            
-                <li class="tech-item">
-                    VueJS
-                    
-                        <div class="description-box">
-                            <p>Description for VueJS</p>
-                        </div>
-                    
-                </li>
-            
-                <li class="tech-item">
-                    MuleSoft
-                    
-                        <div class="description-box">
-                            <p>Description for MuleSoft</p>
-                        </div>
-                    
-                </li>
-            </ul>
-            </div>
-        </div>
-    
-        <div class="tech-category">
-            <div class="category-header">
-                Bibliothèques
-            </div>
-            <div class="category-content">
-    
-            <div class="description-box">
-                <h4>À propos</h4>
-                <p>Description for Bibliothèques</p>
-            </div>
-        <ul class="tech-list">
-                <li class="tech-item">
-                    Hibernate
-                    
-                        <div class="description-box">
-                            <p>Description for Hibernate</p>
-                        </div>
-                    
-                </li>
-            
-                <li class="tech-item">
-                    OpenApi
-                    
-                        <div class="description-box">
-                            <p>Description for OpenApi</p>
-                        </div>
-                    
-                </li>
-            
-                <li class="tech-item">
-                    Kafka
-                    
-                        <div class="description-box">
-                            <p>Description for Kafka</p>
-                        </div>
-                    
-                </li>
-            </ul>
-            </div>
-        </div>
-    
-        <div class="tech-category">
-            <div class="category-header">
-                Outils de Test  et qualité logiciel
-            </div>
-            <div class="category-content">
-    
-            <div class="description-box">
-                <h4>À propos</h4>
-                <p>Description for Outils de Test  et qualité logiciel</p>
-            </div>
-        <ul class="tech-list">
-                <li class="tech-item">
-                    Junit5
-                    
-                        <div class="description-box">
-                            <p>Description for Junit5</p>
-                        </div>
-                    
-                </li>
-            
-                <li class="tech-item">
-                    Cucumber
-                    
-                        <div class="description-box">
-                            <p>Description for Cucumber</p>
-                        </div>
-                    
-                </li>
-            
-                <li class="tech-item">
-                    SonaeQube
-                    
-                        <div class="description-box">
-                            <p>Description for SonaeQube</p>
-                        </div>
-                    
-                </li>
-            </ul>
-            </div>
-        </div>
-    
-        <div class="tech-category">
-            <div class="category-header">
-                Outils dev sec ops
-            </div>
-            <div class="category-content">
-    
-            <div class="description-box">
-                <h4>À propos</h4>
-                <p>Description for Outils dev sec ops</p>
-            </div>
-        <ul class="tech-list">
-                <li class="tech-item">
-                    Git
-                    
-                        <div class="description-box">
-                            <p>Description for Git</p>
-                        </div>
-                    
-                </li>
-            
-                <li class="tech-item">
-                    Bitbucket
-                    
-                        <div class="description-box">
-                            <p>Description for Bitbucket</p>
-                        </div>
-                    
-                </li>
-            
-                <li class="tech-item">
-                    GitlabCi
-                    
-                        <div class="description-box">
-                            <p>Description for GitlabCi</p>
-                        </div>
-                    
-                </li>
-            
-                <li class="tech-item">
-                    Jenkins
-                    
-                        <div class="description-box">
-                            <p>Description for Jenkins</p>
-                        </div>
-                    
-                </li>
-            
-                <li class="tech-item">
-                    Docker
-                    
-                        <div class="description-box">
-                            <p>Description for Docker</p>
-                        </div>
-                    
-                </li>
-            
-                <li class="tech-item">
-                    Kubernetes
-                    
-                        <div class="description-box">
-                            <p>Description for Kubernetes</p>
-                        </div>
-                    
-                </li>
-            </ul>
-            </div>
-        </div>
-    
-        <div class="tech-category">
-            <div class="category-header">
-                Outils cloud
-            </div>
-            <div class="category-content">
-    
-            <div class="description-box">
-                <h4>À propos</h4>
-                <p>Description for Outils cloud</p>
-            </div>
-        <ul class="tech-list">
-                <li class="tech-item">
-                    GCP
-                    
-                        <div class="description-box">
-                            <p>Description for GCP</p>
-                        </div>
-                    
-                </li>
-            </ul>
-            </div>
-        </div>
-    
-        <div class="tech-category">
-            <div class="category-header">
-                Outils de Modelisation
-            </div>
-            <div class="category-content">
-    
-            <div class="description-box">
-                <h4>À propos</h4>
-                <p>Description for Outils de Modelisation</p>
-            </div>
-        <ul class="tech-list">
-                <li class="tech-item">
-                    UML(draw.io)
-                    
-                        <div class="description-box">
-                            <p>Description for UML(draw.io)</p>
-                        </div>
-                    
-                </li>
-            
-                <li class="tech-item">
-                    UI_UX  (figma)
-                    
-                        <div class="description-box">
-                            <p>Description for UI_UX  (figma)</p>
-                        </div>
-                    
-                </li>
-            
-                <li class="tech-item">
-                    Api (RAML YAML)
-                    
-                        <div class="description-box">
-                            <p>Description for Api (RAML YAML)</p>
-                        </div>
-                    
-                </li>
-            </ul>
-            </div>
-        </div>
-    
-        <div class="tech-category">
-            <div class="category-header">
-                Base de données et moteurs de recherche
-            </div>
-            <div class="category-content">
-    
-            <div class="description-box">
-                <h4>À propos</h4>
-                <p>Description for Base de données et moteurs de recherche</p>
-            </div>
-        <ul class="tech-list">
-                <li class="tech-item">
-                    Postgres
-                    
-                        <div class="description-box">
-                            <p>Description for Postgres</p>
-                        </div>
-                    
-                </li>
-            
-                <li class="tech-item">
-                    Oracle
-                    
-                        <div class="description-box">
-                            <p>Description for Oracle</p>
-                        </div>
-                    
-                </li>
-            
-                <li class="tech-item">
-                    Mysql
-                    
-                        <div class="description-box">
-                            <p>Description for Mysql</p>
-                        </div>
-                    
-                </li>
-            
-                <li class="tech-item">
-                    MamngoDB
-                    
-                        <div class="description-box">
-                            <p>Description for MamngoDB</p>
-                        </div>
-                    
-                </li>
-            
-                <li class="tech-item">
-                    Elasticsearch
-                    
-                        <div class="description-box">
-                            <p>Description for Elasticsearch</p>
-                        </div>
-                    
-                </li>
-            </ul>
-            </div>
-        </div>
-    
-        <div class="tech-category">
-            <div class="category-header">
-                Architectures logiciel
-            </div>
-            <div class="category-content">
-    
-            <div class="description-box">
-                <h4>À propos</h4>
-                <p>Description for Architectures logiciel</p>
-            </div>
-        <ul class="tech-list">
-                <li class="tech-item">
-                    Layered
-                    
-                        <div class="description-box">
-                            <p>Description for Layered</p>
-                        </div>
-                    
-                </li>
-            
-                <li class="tech-item">
-                    Mvc
-                    
-                        <div class="description-box">
-                            <p>Description for Mvc</p>
-                        </div>
-                    
-                </li>
-            
-                <li class="tech-item">
-                    Microservice
-                    
-                        <div class="description-box">
-                            <p>Description for Microservice</p>
-                        </div>
-                    
-                </li>
-            
-                <li class="tech-item">
-                    Hexagonal
-                    
-                        <div class="description-box">
-                            <p>Description for Hexagonal</p>
-                        </div>
-                    
-                </li>
-            </ul>
-            </div>
-        </div>
-    
-        <div class="tech-category">
-            <div class="category-header">
-                Principes de l'ingénierie  logiciel
-            </div>
-            <div class="category-content">
-    
-            <div class="description-box">
-                <h4>À propos</h4>
-                <p>Description for Principes de l'ingénierie  logiciel</p>
-            </div>
-        <ul class="tech-list">
-                <li class="tech-item">
-                    Solid
-                    
-                        <div class="description-box">
-                            <p>Description for Solid</p>
-                        </div>
-                    
-                </li>
-            
-                <li class="tech-item">
-                    Clean code
-                    
-                        <div class="description-box">
-                            <p>Description for Clean code</p>
-                        </div>
-                    
-                </li>
-            </ul>
-            </div>
-        </div>
-    
-        <div class="tech-category">
-            <div class="category-header">
+            <li class="folder-item" data-category="Projets MVP">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 3a1 1 0 0 1 1-1h3l1 1h7a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3z" fill="currentColor"/>
+                </svg>
                 Projets MVP
-            </div>
-            <div class="category-content">
-    
-            <div class="description-box">
-                <h4>À propos</h4>
-                <p>Description for Projets MVP</p>
-            </div>
+            </li>
         
-            </div>
-        </div>
-    
-        <div class="tech-category">
-            <div class="category-header">
+            <li class="folder-item" data-category="Projets POCs">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 3a1 1 0 0 1 1-1h3l1 1h7a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3z" fill="currentColor"/>
+                </svg>
                 Projets POCs
-            </div>
-            <div class="category-content">
-    
-            <div class="description-box">
-                <h4>À propos</h4>
-                <p>Description for Projets POCs</p>
-            </div>
-        
-            </div>
+            </li>
+        </ul>
+    </aside>
+    <main class="main-content">
+        <header class="content-header">
+            <h1 class="content-title">Mes Compétences</h1>
+        </header>
+        <div class="content-body">
+            
+                <div class="description-card" data-category="Langages de programmation">
+                    <h3 class="description-title">Langages de programmation</h3>
+                    <p class="description-text">Description for Langages de programmation</p>
+                    <div class="items-list">
+            
+                        <div class="description-card">
+                            <h4 class="description-title">Java</h4>
+                            <p class="description-text">Description for Java</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">JavaScript</h4>
+                            <p class="description-text">Description for JavaScript</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">Python</h4>
+                            <p class="description-text">Description for Python</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">Shell</h4>
+                            <p class="description-text">Description for Shell</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">C++</h4>
+                            <p class="description-text">Description for C++</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">Scala</h4>
+                            <p class="description-text">Description for Scala</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">PL/SQL</h4>
+                            <p class="description-text">Description for PL/SQL</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">KSQL</h4>
+                            <p class="description-text">Description for KSQL</p>
+                        </div>
+                    
+                    </div>
+                </div>
+            
+                <div class="description-card" data-category="Frameworks">
+                    <h3 class="description-title">Frameworks</h3>
+                    <p class="description-text">Description for Frameworks</p>
+                    <div class="items-list">
+            
+                        <div class="description-card">
+                            <h4 class="description-title">Spring</h4>
+                            <p class="description-text">Description for Spring</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">Micronaut</h4>
+                            <p class="description-text">Description for Micronaut</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">Quarkus</h4>
+                            <p class="description-text">Description for Quarkus</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">Django</h4>
+                            <p class="description-text">Description for Django</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">Angular</h4>
+                            <p class="description-text">Description for Angular</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">VueJS</h4>
+                            <p class="description-text">Description for VueJS</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">MuleSoft</h4>
+                            <p class="description-text">Description for MuleSoft</p>
+                        </div>
+                    
+                    </div>
+                </div>
+            
+                <div class="description-card" data-category="Bibliothèques">
+                    <h3 class="description-title">Bibliothèques</h3>
+                    <p class="description-text">Description for Bibliothèques</p>
+                    <div class="items-list">
+            
+                        <div class="description-card">
+                            <h4 class="description-title">Hibernate</h4>
+                            <p class="description-text">Description for Hibernate</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">OpenApi</h4>
+                            <p class="description-text">Description for OpenApi</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">Kafka</h4>
+                            <p class="description-text">Description for Kafka</p>
+                        </div>
+                    
+                    </div>
+                </div>
+            
+                <div class="description-card" data-category="Outils de Test  et qualité logiciel">
+                    <h3 class="description-title">Outils de Test  et qualité logiciel</h3>
+                    <p class="description-text">Description for Outils de Test  et qualité logiciel</p>
+                    <div class="items-list">
+            
+                        <div class="description-card">
+                            <h4 class="description-title">Junit5</h4>
+                            <p class="description-text">Description for Junit5</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">Cucumber</h4>
+                            <p class="description-text">Description for Cucumber</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">SonaeQube</h4>
+                            <p class="description-text">Description for SonaeQube</p>
+                        </div>
+                    
+                    </div>
+                </div>
+            
+                <div class="description-card" data-category="Outils dev sec ops">
+                    <h3 class="description-title">Outils dev sec ops</h3>
+                    <p class="description-text">Description for Outils dev sec ops</p>
+                    <div class="items-list">
+            
+                        <div class="description-card">
+                            <h4 class="description-title">Git</h4>
+                            <p class="description-text">Description for Git</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">Bitbucket</h4>
+                            <p class="description-text">Description for Bitbucket</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">GitlabCi</h4>
+                            <p class="description-text">Description for GitlabCi</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">Jenkins</h4>
+                            <p class="description-text">Description for Jenkins</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">Docker</h4>
+                            <p class="description-text">Description for Docker</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">Kubernetes</h4>
+                            <p class="description-text">Description for Kubernetes</p>
+                        </div>
+                    
+                    </div>
+                </div>
+            
+                <div class="description-card" data-category="Outils cloud">
+                    <h3 class="description-title">Outils cloud</h3>
+                    <p class="description-text">Description for Outils cloud</p>
+                    <div class="items-list">
+            
+                        <div class="description-card">
+                            <h4 class="description-title">GCP</h4>
+                            <p class="description-text">Description for GCP</p>
+                        </div>
+                    
+                    </div>
+                </div>
+            
+                <div class="description-card" data-category="Outils de Modelisation">
+                    <h3 class="description-title">Outils de Modelisation</h3>
+                    <p class="description-text">Description for Outils de Modelisation</p>
+                    <div class="items-list">
+            
+                        <div class="description-card">
+                            <h4 class="description-title">UML(draw.io)</h4>
+                            <p class="description-text">Description for UML(draw.io)</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">UI_UX  (figma)</h4>
+                            <p class="description-text">Description for UI_UX  (figma)</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">Api (RAML YAML)</h4>
+                            <p class="description-text">Description for Api (RAML YAML)</p>
+                        </div>
+                    
+                    </div>
+                </div>
+            
+                <div class="description-card" data-category="Base de données et moteurs de recherche">
+                    <h3 class="description-title">Base de données et moteurs de recherche</h3>
+                    <p class="description-text">Description for Base de données et moteurs de recherche</p>
+                    <div class="items-list">
+            
+                        <div class="description-card">
+                            <h4 class="description-title">Postgres</h4>
+                            <p class="description-text">Description for Postgres</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">Oracle</h4>
+                            <p class="description-text">Description for Oracle</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">Mysql</h4>
+                            <p class="description-text">Description for Mysql</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">MamngoDB</h4>
+                            <p class="description-text">Description for MamngoDB</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">Elasticsearch</h4>
+                            <p class="description-text">Description for Elasticsearch</p>
+                        </div>
+                    
+                    </div>
+                </div>
+            
+                <div class="description-card" data-category="Architectures logiciel">
+                    <h3 class="description-title">Architectures logiciel</h3>
+                    <p class="description-text">Description for Architectures logiciel</p>
+                    <div class="items-list">
+            
+                        <div class="description-card">
+                            <h4 class="description-title">Layered</h4>
+                            <p class="description-text">Description for Layered</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">Mvc</h4>
+                            <p class="description-text">Description for Mvc</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">Microservice</h4>
+                            <p class="description-text">Description for Microservice</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">Hexagonal</h4>
+                            <p class="description-text">Description for Hexagonal</p>
+                        </div>
+                    
+                    </div>
+                </div>
+            
+                <div class="description-card" data-category="Principes de l'ingénierie  logiciel">
+                    <h3 class="description-title">Principes de l'ingénierie  logiciel</h3>
+                    <p class="description-text">Description for Principes de l'ingénierie  logiciel</p>
+                    <div class="items-list">
+            
+                        <div class="description-card">
+                            <h4 class="description-title">Solid</h4>
+                            <p class="description-text">Description for Solid</p>
+                        </div>
+                    
+                        <div class="description-card">
+                            <h4 class="description-title">Clean code</h4>
+                            <p class="description-text">Description for Clean code</p>
+                        </div>
+                    
+                    </div>
+                </div>
+            
         </div>
-    </div>
     </main>
+    <script>
+        // Gestion des interactions
+        document.querySelectorAll('.folder-item').forEach(item => {
+            item.addEventListener('click', () => {
+                // Retirer la classe active de tous les éléments
+                document.querySelectorAll('.folder-item').forEach(i => i.classList.remove('active'));
+                // Ajouter la classe active à l'élément cliqué
+                item.classList.add('active');
+                
+                const category = item.dataset.category;
+                // Afficher/masquer les descriptions correspondantes
+                document.querySelectorAll('.description-card').forEach(card => {
+                    if (card.dataset.category === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Afficher la première catégorie par défaut
+        const firstFolder = document.querySelector('.folder-item');
+        if (firstFolder) {
+            firstFolder.click();
+        }
+    </script>
 </body>
 </html>

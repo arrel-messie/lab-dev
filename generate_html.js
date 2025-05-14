@@ -14,18 +14,18 @@ const structure = JSON.parse(structureMatch[1]);
 
 // Définir le style CSS complet
 const styles = `
-    /* Variables globales */
     :root {
-        --primary-color: #333333;
-        --secondary-color: #0071e3;
+        --sidebar-width: 260px;
+        --header-height: 50px;
         --background-color: #ffffff;
-        --light-gray: #f5f5f7;
-        --medium-gray: #86868b;
-        --dark-gray: #1d1d1f;
-        --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        --sidebar-background: #f5f5f7;
+        --text-color: #1d1d1f;
+        --border-color: #e2e2e2;
+        --accent-color: #007AFF;
+        --hover-color: #f0f0f0;
+        --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
 
-    /* Reset CSS */
     * {
         margin: 0;
         padding: 0;
@@ -34,165 +34,138 @@ const styles = `
 
     body {
         font-family: var(--font-family);
-        background-color: var(--background-color);
-        color: var(--primary-color);
-        line-height: 1.6;
-        -webkit-font-smoothing: antialiased;
-    }
-
-    /* En-tête */
-    header {
-        background-color: var(--background-color);
-        padding: 2rem 0;
-        text-align: center;
-        border-bottom: 1px solid rgba(0,0,0,0.1);
-    }
-
-    .profile-container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 0 1.5rem;
-    }
-
-    .profile-name {
-        font-size: 2.5rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-        color: var(--dark-gray);
-    }
-
-    .profile-title {
-        font-size: 1.5rem;
-        color: var(--medium-gray);
-        margin-bottom: 1.5rem;
-    }
-
-    /* Contenu principal */
-    main {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 2rem 1rem;
-    }
-
-    .section-title {
-        font-size: 2rem;
-        font-weight: 600;
-        margin-bottom: 2rem;
-        text-align: center;
-        color: var(--dark-gray);
-    }
-
-    /* Grille de compétences */
-    .tech-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
-        padding: 20px;
-    }
-
-    .tech-category {
-        background: var(--background-color);
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        color: var(--text-color);
+        line-height: 1.5;
+        height: 100vh;
+        display: flex;
         overflow: hidden;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .tech-category:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    /* Sidebar */
+    .sidebar {
+        width: var(--sidebar-width);
+        height: 100vh;
+        background: var(--sidebar-background);
+        border-right: 1px solid var(--border-color);
+        overflow-y: auto;
+        flex-shrink: 0;
     }
 
-    .category-header {
-        background: var(--secondary-color);
+    .sidebar-header {
+        padding: 15px;
+        font-size: 1.1em;
+        font-weight: 500;
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 0;
+        background: var(--sidebar-background);
+        z-index: 1;
+    }
+
+    .folder-list {
+        list-style: none;
+    }
+
+    .folder-item {
+        padding: 8px 15px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.95em;
+    }
+
+    .folder-item:hover {
+        background: var(--hover-color);
+    }
+
+    .folder-item.active {
+        background: var(--accent-color);
         color: white;
-        padding: 15px 20px;
+    }
+
+    /* Main Content */
+    .main-content {
+        flex: 1;
+        height: 100vh;
+        overflow-y: auto;
+        background: var(--background-color);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content-header {
+        height: var(--header-height);
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        position: sticky;
+        top: 0;
+        background: var(--background-color);
+        z-index: 1;
+    }
+
+    .content-title {
         font-size: 1.2em;
         font-weight: 500;
     }
 
-    .category-content {
+    .content-body {
         padding: 20px;
+        flex: 1;
     }
 
-    .tech-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .tech-item {
-        padding: 10px 0;
-        border-bottom: 1px solid var(--light-gray);
-        display: flex;
-        align-items: center;
-    }
-
-    .tech-item:last-child {
-        border-bottom: none;
-    }
-
-    .tech-item::before {
-        content: "•";
-        color: var(--secondary-color);
-        font-weight: bold;
-        margin-right: 10px;
-    }
-
-    .description-box {
-        background: var(--light-gray);
-        padding: 15px;
-        margin-top: 15px;
+    .description-card {
+        background: var(--background-color);
+        border: 1px solid var(--border-color);
         border-radius: 6px;
-        font-size: 0.9em;
-        color: var(--dark-gray);
+        padding: 15px;
+        margin-bottom: 15px;
     }
 
-    .description-box h4 {
-        margin: 0 0 8px 0;
-        color: var(--secondary-color);
-        font-size: 1em;
+    .description-title {
+        font-size: 1.1em;
+        font-weight: 500;
+        margin-bottom: 10px;
+        color: var(--accent-color);
     }
 
-    /* Mode sombre */
+    .description-text {
+        font-size: 0.95em;
+        color: var(--text-color);
+    }
+
+    /* Dark Mode */
     @media (prefers-color-scheme: dark) {
         :root {
-            --background-color: #000000;
-            --light-gray: #1d1d1f;
-            --dark-gray: #f5f5f7;
-            --primary-color: #f5f5f7;
-        }
-
-        .tech-category {
-            background: var(--dark-gray);
-        }
-
-        .description-box {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .tech-item {
-            border-bottom-color: rgba(255, 255, 255, 0.1);
+            --background-color: #1c1c1e;
+            --sidebar-background: #2c2c2e;
+            --text-color: #ffffff;
+            --border-color: #3d3d3d;
+            --hover-color: #3a3a3c;
         }
     }
 
-    /* Responsive */
+    /* Responsive Design */
     @media (max-width: 768px) {
-        .tech-grid {
-            grid-template-columns: 1fr;
-            padding: 10px;
+        .sidebar {
+            width: 100%;
+            position: fixed;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
         }
 
-        .profile-name {
-            font-size: 2rem;
+        .sidebar.show {
+            transform: translateX(0);
         }
 
-        .profile-title {
-            font-size: 1.2rem;
+        .main-content {
+            width: 100%;
         }
 
-        .section-title {
-            font-size: 1.7rem;
+        .menu-toggle {
+            display: block;
         }
     }
 `;
@@ -211,76 +184,88 @@ function getDescription(folderPath) {
     return null;
 }
 
-// Fonction pour générer le HTML pour une catégorie
-function generateCategoryHTML(name, content, currentPath = '') {
-    const fullPath = path.join(currentPath, name);
-    const description = getDescription(fullPath);
+// Fonction pour générer le HTML de la sidebar
+function generateSidebarHTML(structure) {
+    let html = '<ul class="folder-list">';
     
-    let html = `
-        <div class="tech-category">
-            <div class="category-header">
-                ${name}
-            </div>
-            <div class="category-content">
-    `;
-
-    if (description) {
-        html += `
-            <div class="description-box">
-                <h4>À propos</h4>
-                <p>${description.description}</p>
-            </div>
-        `;
-    }
-
-    if (typeof content === 'object' && Object.keys(content).length > 0) {
-        html += '<ul class="tech-list">';
-        Object.entries(content).forEach(([itemName, itemContent]) => {
-            const itemPath = path.join(fullPath, itemName);
-            const itemDesc = getDescription(itemPath);
-            
+    // Compétences techniques
+    if (structure["Competences techniques"]) {
+        Object.entries(structure["Competences techniques"]).forEach(([category]) => {
             html += `
-                <li class="tech-item">
-                    ${itemName}
-                    ${itemDesc ? `
-                        <div class="description-box">
-                            <p>${itemDesc.description}</p>
-                        </div>
-                    ` : ''}
+                <li class="folder-item" data-category="${category}">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 3a1 1 0 0 1 1-1h3l1 1h7a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3z" fill="currentColor"/>
+                    </svg>
+                    ${category}
                 </li>
             `;
         });
-        html += '</ul>';
     }
 
-    html += `
-            </div>
-        </div>
-    `;
+    // Projets
+    if (structure["Projets MVP"]) {
+        html += `
+            <li class="folder-item" data-category="Projets MVP">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 3a1 1 0 0 1 1-1h3l1 1h7a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3z" fill="currentColor"/>
+                </svg>
+                Projets MVP
+            </li>
+        `;
+    }
+    if (structure["Projets POCs"]) {
+        html += `
+            <li class="folder-item" data-category="Projets POCs">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 3a1 1 0 0 1 1-1h3l1 1h7a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3z" fill="currentColor"/>
+                </svg>
+                Projets POCs
+            </li>
+        `;
+    }
 
+    html += '</ul>';
     return html;
 }
 
-// Générer le HTML pour toute la structure
-function generateStructureHTML(structure) {
-    let html = '<div class="tech-grid">';
+// Fonction pour générer le contenu principal
+function generateMainContentHTML(structure) {
+    let html = '';
     
-    // Traiter d'abord les compétences techniques
+    // Compétences techniques
     if (structure["Competences techniques"]) {
-        Object.entries(structure["Competences techniques"]).forEach(([category, content]) => {
-            html += generateCategoryHTML(category, content, "Competences techniques");
+        Object.entries(structure["Competences techniques"]).forEach(([category, items]) => {
+            const categoryPath = path.join("Competences techniques", category);
+            const description = getDescription(categoryPath);
+            
+            html += `
+                <div class="description-card" data-category="${category}">
+                    <h3 class="description-title">${category}</h3>
+                    ${description ? `<p class="description-text">${description.description}</p>` : ''}
+                    <div class="items-list">
+            `;
+            
+            Object.entries(items).forEach(([itemName]) => {
+                const itemPath = path.join(categoryPath, itemName);
+                const itemDesc = getDescription(itemPath);
+                
+                if (itemDesc) {
+                    html += `
+                        <div class="description-card">
+                            <h4 class="description-title">${itemName}</h4>
+                            <p class="description-text">${itemDesc.description}</p>
+                        </div>
+                    `;
+                }
+            });
+            
+            html += `
+                    </div>
+                </div>
+            `;
         });
     }
 
-    // Traiter les projets
-    if (structure["Projets MVP"]) {
-        html += generateCategoryHTML("Projets MVP", structure["Projets MVP"]);
-    }
-    if (structure["Projets POCs"]) {
-        html += generateCategoryHTML("Projets POCs", structure["Projets POCs"]);
-    }
-
-    html += '</div>';
     return html;
 }
 
@@ -295,16 +280,45 @@ const completeHTML = `
     <style>${styles}</style>
 </head>
 <body>
-    <header>
-        <div class="profile-container">
-            <h1 class="profile-name">Portfolio Technique</h1>
-            <p class="profile-title">Compétences et Projets</p>
+    <aside class="sidebar">
+        <div class="sidebar-header">Portfolio Technique</div>
+        ${generateSidebarHTML(structure)}
+    </aside>
+    <main class="main-content">
+        <header class="content-header">
+            <h1 class="content-title">Mes Compétences</h1>
+        </header>
+        <div class="content-body">
+            ${generateMainContentHTML(structure)}
         </div>
-    </header>
-    <main>
-        <h2 class="section-title">Mes Compétences</h2>
-        ${generateStructureHTML(structure)}
     </main>
+    <script>
+        // Gestion des interactions
+        document.querySelectorAll('.folder-item').forEach(item => {
+            item.addEventListener('click', () => {
+                // Retirer la classe active de tous les éléments
+                document.querySelectorAll('.folder-item').forEach(i => i.classList.remove('active'));
+                // Ajouter la classe active à l'élément cliqué
+                item.classList.add('active');
+                
+                const category = item.dataset.category;
+                // Afficher/masquer les descriptions correspondantes
+                document.querySelectorAll('.description-card').forEach(card => {
+                    if (card.dataset.category === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Afficher la première catégorie par défaut
+        const firstFolder = document.querySelector('.folder-item');
+        if (firstFolder) {
+            firstFolder.click();
+        }
+    </script>
 </body>
 </html>
 `;
