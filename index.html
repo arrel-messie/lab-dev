@@ -1,779 +1,750 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arrel Messie | Développeur Logiciel</title>
+    <title>Portfolio Technique</title>
     <style>
-        /* Variables globales */
+    /* Variables globales */
+    :root {
+        --primary-color: #333333;
+        --secondary-color: #0071e3;
+        --background-color: #ffffff;
+        --light-gray: #f5f5f7;
+        --medium-gray: #86868b;
+        --dark-gray: #1d1d1f;
+        --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    /* Reset CSS */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: var(--font-family);
+        background-color: var(--background-color);
+        color: var(--primary-color);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* En-tête */
+    header {
+        background-color: var(--background-color);
+        padding: 2rem 0;
+        text-align: center;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .profile-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+
+    .profile-name {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--dark-gray);
+    }
+
+    .profile-title {
+        font-size: 1.5rem;
+        color: var(--medium-gray);
+        margin-bottom: 1.5rem;
+    }
+
+    /* Contenu principal */
+    main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        text-align: center;
+        color: var(--dark-gray);
+    }
+
+    /* Grille de compétences */
+    .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .tech-category {
+        background: var(--background-color);
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .tech-category:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .category-header {
+        background: var(--secondary-color);
+        color: white;
+        padding: 15px 20px;
+        font-size: 1.2em;
+        font-weight: 500;
+    }
+
+    .category-content {
+        padding: 20px;
+    }
+
+    .tech-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .tech-item {
+        padding: 10px 0;
+        border-bottom: 1px solid var(--light-gray);
+        display: flex;
+        align-items: center;
+    }
+
+    .tech-item:last-child {
+        border-bottom: none;
+    }
+
+    .tech-item::before {
+        content: "•";
+        color: var(--secondary-color);
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+    .description-box {
+        background: var(--light-gray);
+        padding: 15px;
+        margin-top: 15px;
+        border-radius: 6px;
+        font-size: 0.9em;
+        color: var(--dark-gray);
+    }
+
+    .description-box h4 {
+        margin: 0 0 8px 0;
+        color: var(--secondary-color);
+        font-size: 1em;
+    }
+
+    /* Mode sombre */
+    @media (prefers-color-scheme: dark) {
         :root {
-            --primary-color: #333333;
-            --secondary-color: #0071e3;
-            --background-color: #ffffff;
-            --light-gray: #f5f5f7;
-            --medium-gray: #86868b;
-            --dark-gray: #1d1d1f;
-            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            --background-color: #000000;
+            --light-gray: #1d1d1f;
+            --dark-gray: #f5f5f7;
+            --primary-color: #f5f5f7;
         }
 
-        /* Reset CSS */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        .tech-category {
+            background: var(--dark-gray);
         }
 
-        body {
-            font-family: var(--font-family);
-            background-color: var(--background-color);
-            color: var(--primary-color);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
+        .description-box {
+            background: rgba(255, 255, 255, 0.05);
         }
 
-        /* En-tête */
-        header {
-            background-color: var(--background-color);
-            padding: 2rem 0;
-            text-align: center;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
+        .tech-item {
+            border-bottom-color: rgba(255, 255, 255, 0.1);
         }
+    }
 
-        .profile-container {
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 0 1.5rem;
-        }
-
-        .profile-image {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 1.5rem;
-            border: 3px solid var(--light-gray);
+    /* Responsive */
+    @media (max-width: 768px) {
+        .tech-grid {
+            grid-template-columns: 1fr;
+            padding: 10px;
         }
 
         .profile-name {
-            font-size: 2.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.02em;
+            font-size: 2rem;
         }
 
         .profile-title {
-            font-size: 1.5rem;
-            color: var(--medium-gray);
-            margin-bottom: 1rem;
-            font-weight: 400;
-        }
-
-        .profile-contact {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            color: var(--medium-gray);
-            font-size: 0.9rem;
-        }
-
-        .contact-item svg {
-            margin-right: 0.4rem;
-            width: 16px;
-            height: 16px;
-        }
-
-        /* Navigation */
-        nav {
-            background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-        }
-
-        .nav-container {
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            padding: 0 1.5rem;
-        }
-
-        .nav-link {
-            color: var(--dark-gray);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .nav-link:hover {
-            color: var(--secondary-color);
-        }
-
-        /* Contenu principal */
-        main {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 3rem 1.5rem;
-        }
-
-        section {
-            margin-bottom: 4rem;
+            font-size: 1.2rem;
         }
 
         .section-title {
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.02em;
+            font-size: 1.7rem;
         }
-
-        .section-subtitle {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin: 2rem 0 1rem;
-            color: var(--dark-gray);
-        }
-
-        .section-content {
-            font-size: 1.05rem;
-            color: var(--primary-color);
-            line-height: 1.7;
-        }
-
-        /* Section compétences */
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .skill-category {
-            margin-bottom: 1rem;
-        }
-
-        .skill-category-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-            color: var(--secondary-color);
-            display: flex;
-            align-items: center;
-        }
-
-        .skill-category-title svg {
-            margin-right: 0.5rem;
-            width: 20px;
-            height: 20px;
-        }
-
-        .skill-list {
-            list-style: none;
-        }
-
-        .skill-item {
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .skill-item::before {
-            content: "";
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background-color: var(--medium-gray);
-            margin-right: 10px;
-        }
-
-        /* Articles / Blog */
-        .articles-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .article-card {
-            background-color: var(--light-gray);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .article-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .article-image {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-        }
-
-        .article-content {
-            padding: 1.2rem;
-        }
-
-        .article-date {
-            color: var(--medium-gray);
-            font-size: 0.8rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .article-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-            color: var(--dark-gray);
-        }
-
-        .article-excerpt {
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            color: var(--medium-gray);
-        }
-
-        .article-link {
-            color: var(--secondary-color);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        /* Projets */
-        .project-card {
-            background-color: var(--light-gray);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            transition: transform 0.3s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .project-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-            color: var(--dark-gray);
-        }
-
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .project-tag {
-            background-color: rgba(0, 113, 227, 0.1);
-            color: var(--secondary-color);
-            font-size: 0.8rem;
-            padding: 0.3rem 0.7rem;
-            border-radius: 20px;
-        }
-
-        .project-description {
-            font-size: 0.95rem;
-            margin-bottom: 1.2rem;
-            color: var(--primary-color);
-        }
-
-        .project-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .project-button {
-            display: inline-flex;
-            align-items: center;
-            background-color: var(--dark-gray);
-            color: white;
-            border: none;
-            border-radius: 20px;
-            padding: 0.5rem 1rem;
-            font-size: 0.8rem;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background-color 0.2s;
-        }
-
-        .project-button svg {
-            margin-right: 0.4rem;
-        }
-
-        .project-button:hover {
-            background-color: var(--secondary-color);
-        }
-
-        /* Contact */
-        .contact-form {
-            max-width: 500px;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid var(--medium-gray);
-            border-radius: 8px;
-            font-family: var(--font-family);
-            font-size: 1rem;
-            transition: border-color 0.2s;
-        }
-
-        .form-input:focus {
-            border-color: var(--secondary-color);
-            outline: none;
-        }
-
-        .form-textarea {
-            min-height: 150px;
-        }
-
-        .form-button {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 0.8rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .form-button:hover {
-            background-color: #005bbd;
-        }
-
-        /* Pied de page */
-        footer {
-            background-color: var(--light-gray);
-            padding: 3rem 0;
-            text-align: center;
-        }
-
-        .footer-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .social-link {
-            color: var(--medium-gray);
-            transition: color 0.2s;
-        }
-
-        .social-link:hover {
-            color: var(--secondary-color);
-        }
-
-        .social-link svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        .footer-text {
-            color: var(--medium-gray);
-            font-size: 0.9rem;
-        }
-
-        /* Mode sombre */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --background-color: #000000;
-                --light-gray: #1d1d1f;
-                --medium-gray: #86868b;
-                --dark-gray: #f5f5f7;
-                --primary-color: #f5f5f7;
-            }
-
-            .profile-image {
-                border-color: #333;
-            }
-
-            nav {
-                background-color: rgba(0, 0, 0, 0.8);
-            }
-
-            .article-card, .project-card {
-                background-color: #1d1d1f;
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .profile-name {
-                font-size: 2rem;
-            }
-
-            .profile-title {
-                font-size: 1.2rem;
-            }
-
-            .section-title {
-                font-size: 1.7rem;
-            }
-
-            .skills-container {
-                grid-template-columns: 1fr;
-            }
-
-            .articles-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-container {
-                gap: 1rem;
-            }
-        }
-    
-    <style>
-        .expansion-panel {
-            border: 1px solid var(--light-gray);
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-        }
-
-        .expansion-header {
-            display: flex;
-            align-items: center;
-            padding: 1rem;
-            cursor: pointer;
-            background-color: var(--light-gray);
-            transition: background-color 0.3s ease;
-        }
-
-        .expansion-header:hover {
-            background-color: var(--medium-gray);
-            color: white;
-        }
-
-        .expansion-header svg {
-            margin-right: 1rem;
-            width: 24px;
-            height: 24px;
-        }
-
-        .expansion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            background-color: var(--background-color);
-        }
-
-        .expansion-content.active {
-            max-height: 500px;
-            padding: 1rem;
-        }
-
-        .expansion-toggle {
-            display: none;
-        }
-
-        .expansion-toggle:checked + .expansion-header + .expansion-content {
-            max-height: 500px;
-            padding: 1rem;
-        }
-
-        .skill-item {
-            display: flex;
-            align-items: center;
-            padding: 0.5rem;
-            border-bottom: 1px solid var(--light-gray);
-        }
-
-        .skill-item:last-child {
-            border-bottom: none;
-        }
-    </style>
+    }
 </style>
 </head>
 <body>
     <header>
         <div class="profile-container">
-            <img src="profile-image.jpg" alt="Arrel Messie" class="profile-image">
-            <h1 class="profile-name">Arrel Messie</h1>
-            <p class="profile-title">Développeur Logiciel Full Stack</p>
-            <div class="profile-contact">
-                <span class="contact-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                        <polyline points="22,6 12,13 2,6"></polyline>
-                    </svg>
-                    contact@arrelmessie.com
-                </span>
-                <span class="contact-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                        <circle cx="12" cy="10" r="3"></circle>
-                    </svg>
-                    Paris, France
-                </span>
-            </div>
+            <h1 class="profile-name">Portfolio Technique</h1>
+            <p class="profile-title">Compétences et Projets</p>
         </div>
     </header>
-
-    <nav>
-        <div class="nav-container">
-            <a href="#competences" class="nav-link">Compétences</a>
-            <a href="#projets" class="nav-link">Projets</a>
-            <a href="#contact" class="nav-link">Contact</a>
-        </div>
-    </nav>
-
     <main>
-        <section id="competences">
-            <h2 class="section-title">Compétences</h2>
-            <div class="skills-container">
-                
-                <div class="skill-category">
-                    <h3 class="skill-category-title">
-                        Langages de programmation
-                    </h3>
-                    <ul class="skill-list">
-        
-                        <li class="skill-item">Java</li>
-            
-                        <li class="skill-item">JavaScript</li>
-            
-                        <li class="skill-item">Python</li>
-            
-                        <li class="skill-item">Shell</li>
-            
-                        <li class="skill-item">C++</li>
-            
-                        <li class="skill-item">Scala</li>
-            
-                        <li class="skill-item">PL/SQL</li>
-            
-                        <li class="skill-item">KSQL</li>
-            
-                    </ul>
-                </div>
-        
-                <div class="skill-category">
-                    <h3 class="skill-category-title">
-                        Frameworks
-                    </h3>
-                    <ul class="skill-list">
-        
-                        <li class="skill-item">Spring</li>
-            
-                        <li class="skill-item">Micronaut</li>
-            
-                        <li class="skill-item">Quarkus</li>
-            
-                        <li class="skill-item">Django</li>
-            
-                        <li class="skill-item">Angular</li>
-            
-                        <li class="skill-item">VueJS</li>
-            
-                        <li class="skill-item">MuleSoft</li>
-            
-                    </ul>
-                </div>
-        
-                <div class="skill-category">
-                    <h3 class="skill-category-title">
-                        Bibliothèques
-                    </h3>
-                    <ul class="skill-list">
-        
-                        <li class="skill-item">Hibernate</li>
-            
-                        <li class="skill-item">OpenApi</li>
-            
-                        <li class="skill-item">Kafka</li>
-            
-                    </ul>
-                </div>
-        
-                <div class="skill-category">
-                    <h3 class="skill-category-title">
-                        Outils de Test  et qualité logiciel
-                    </h3>
-                    <ul class="skill-list">
-        
-                        <li class="skill-item">Junit5</li>
-            
-                        <li class="skill-item">Cucumber</li>
-            
-                        <li class="skill-item">SonaeQube</li>
-            
-                    </ul>
-                </div>
-        
-                <div class="skill-category">
-                    <h3 class="skill-category-title">
-                        Outils dev sec ops
-                    </h3>
-                    <ul class="skill-list">
-        
-                        <li class="skill-item">Git</li>
-            
-                        <li class="skill-item">Bitbucket</li>
-            
-                        <li class="skill-item">GitlabCi</li>
-            
-                        <li class="skill-item">Jenkins</li>
-            
-                        <li class="skill-item">Docker</li>
-            
-                        <li class="skill-item">Kubernetes</li>
-            
-                    </ul>
-                </div>
-        
-                <div class="skill-category">
-                    <h3 class="skill-category-title">
-                        Outils cloud
-                    </h3>
-                    <ul class="skill-list">
-        
-                        <li class="skill-item">GCP</li>
-            
-                    </ul>
-                </div>
-        
-                <div class="skill-category">
-                    <h3 class="skill-category-title">
-                        Outils de Modelisation
-                    </h3>
-                    <ul class="skill-list">
-        
-                        <li class="skill-item">UML(draw.io)</li>
-            
-                        <li class="skill-item">UI_UX  (figma)</li>
-            
-                        <li class="skill-item">Api (RAML YAML)</li>
-            
-                    </ul>
-                </div>
-        
-                <div class="skill-category">
-                    <h3 class="skill-category-title">
-                        Base de données et moteurs de recherche
-                    </h3>
-                    <ul class="skill-list">
-        
-                        <li class="skill-item">Postgres</li>
-            
-                        <li class="skill-item">Oracle</li>
-            
-                        <li class="skill-item">Mysql</li>
-            
-                        <li class="skill-item">MamngoDB</li>
-            
-                        <li class="skill-item">Elasticsearch</li>
-            
-                    </ul>
-                </div>
-        
-                <div class="skill-category">
-                    <h3 class="skill-category-title">
-                        Architectures logiciel
-                    </h3>
-                    <ul class="skill-list">
-        
-                        <li class="skill-item">Layered</li>
-            
-                        <li class="skill-item">Mvc</li>
-            
-                        <li class="skill-item">Microservice</li>
-            
-                        <li class="skill-item">Hexagonal</li>
-            
-                    </ul>
-                </div>
-        
-                <div class="skill-category">
-                    <h3 class="skill-category-title">
-                        Principes de l'ingénierie  logiciel
-                    </h3>
-                    <ul class="skill-list">
-        
-                        <li class="skill-item">Solid</li>
-            
-                        <li class="skill-item">Clean code</li>
-            
-                    </ul>
-                </div>
-        
+        <h2 class="section-title">Mes Compétences</h2>
+        <div class="tech-grid">
+        <div class="tech-category">
+            <div class="category-header">
+                Langages de programmation
             </div>
-        </section>
-
-        <section id="projets">
-            <h2 class="section-title">Projets</h2>
-            <div class="projects-container">
-                
-            <div class="project-section">
-                <h3 class="section-subtitle">Projets MVP</h3>
-                <div class="project-list">
-                    <!-- Les projets MVP seront ajoutés ici -->
-                </div>
-            </div>
-        
-            <div class="project-section">
-                <h3 class="section-subtitle">Projets POCs</h3>
-                <div class="project-list">
-                    <!-- Les projets POC seront ajoutés ici -->
-                </div>
-            </div>
-        
-            </div>
-        </section>
-
-        <section id="contact">
-            <h2 class="section-title">Contact</h2>
-            <div class="section-content">
-                <p>N'hésitez pas à me contacter pour discuter de vos projets ou opportunités de collaboration.</p>
-                <p>Email: contact@arrelmessie.com</p>
-                <p>LinkedIn: linkedin.com/in/arrelmessie</p>
-                <p>GitHub: github.com/arrelmessie</p>
-            </div>
-        </section>
-    </main>
-
+            <div class="category-content">
     
+            <div class="description-box">
+                <h4>À propos</h4>
+                <p>Description for Langages de programmation</p>
+            </div>
+        <ul class="tech-list">
+                <li class="tech-item">
+                    Java
+                    
+                        <div class="description-box">
+                            <p>Description for Java</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    JavaScript
+                    
+                        <div class="description-box">
+                            <p>Description for JavaScript</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    Python
+                    
+                        <div class="description-box">
+                            <p>Description for Python</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    Shell
+                    
+                        <div class="description-box">
+                            <p>Description for Shell</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    C++
+                    
+                        <div class="description-box">
+                            <p>Description for C++</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    Scala
+                    
+                        <div class="description-box">
+                            <p>Description for Scala</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    PL/SQL
+                    
+                        <div class="description-box">
+                            <p>Description for PL/SQL</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    KSQL
+                    
+                        <div class="description-box">
+                            <p>Description for KSQL</p>
+                        </div>
+                    
+                </li>
+            </ul>
+            </div>
+        </div>
+    
+        <div class="tech-category">
+            <div class="category-header">
+                Frameworks
+            </div>
+            <div class="category-content">
+    
+            <div class="description-box">
+                <h4>À propos</h4>
+                <p>Description for Frameworks</p>
+            </div>
+        <ul class="tech-list">
+                <li class="tech-item">
+                    Spring
+                    
+                        <div class="description-box">
+                            <p>Description for Spring</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    Micronaut
+                    
+                        <div class="description-box">
+                            <p>Description for Micronaut</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    Quarkus
+                    
+                        <div class="description-box">
+                            <p>Description for Quarkus</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    Django
+                    
+                        <div class="description-box">
+                            <p>Description for Django</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    Angular
+                    
+                        <div class="description-box">
+                            <p>Description for Angular</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    VueJS
+                    
+                        <div class="description-box">
+                            <p>Description for VueJS</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    MuleSoft
+                    
+                        <div class="description-box">
+                            <p>Description for MuleSoft</p>
+                        </div>
+                    
+                </li>
+            </ul>
+            </div>
+        </div>
+    
+        <div class="tech-category">
+            <div class="category-header">
+                Bibliothèques
+            </div>
+            <div class="category-content">
+    
+            <div class="description-box">
+                <h4>À propos</h4>
+                <p>Description for Bibliothèques</p>
+            </div>
+        <ul class="tech-list">
+                <li class="tech-item">
+                    Hibernate
+                    
+                        <div class="description-box">
+                            <p>Description for Hibernate</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    OpenApi
+                    
+                        <div class="description-box">
+                            <p>Description for OpenApi</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    Kafka
+                    
+                        <div class="description-box">
+                            <p>Description for Kafka</p>
+                        </div>
+                    
+                </li>
+            </ul>
+            </div>
+        </div>
+    
+        <div class="tech-category">
+            <div class="category-header">
+                Outils de Test  et qualité logiciel
+            </div>
+            <div class="category-content">
+    
+            <div class="description-box">
+                <h4>À propos</h4>
+                <p>Description for Outils de Test  et qualité logiciel</p>
+            </div>
+        <ul class="tech-list">
+                <li class="tech-item">
+                    Junit5
+                    
+                        <div class="description-box">
+                            <p>Description for Junit5</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    Cucumber
+                    
+                        <div class="description-box">
+                            <p>Description for Cucumber</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    SonaeQube
+                    
+                        <div class="description-box">
+                            <p>Description for SonaeQube</p>
+                        </div>
+                    
+                </li>
+            </ul>
+            </div>
+        </div>
+    
+        <div class="tech-category">
+            <div class="category-header">
+                Outils dev sec ops
+            </div>
+            <div class="category-content">
+    
+            <div class="description-box">
+                <h4>À propos</h4>
+                <p>Description for Outils dev sec ops</p>
+            </div>
+        <ul class="tech-list">
+                <li class="tech-item">
+                    Git
+                    
+                        <div class="description-box">
+                            <p>Description for Git</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    Bitbucket
+                    
+                        <div class="description-box">
+                            <p>Description for Bitbucket</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    GitlabCi
+                    
+                        <div class="description-box">
+                            <p>Description for GitlabCi</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    Jenkins
+                    
+                        <div class="description-box">
+                            <p>Description for Jenkins</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    Docker
+                    
+                        <div class="description-box">
+                            <p>Description for Docker</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    Kubernetes
+                    
+                        <div class="description-box">
+                            <p>Description for Kubernetes</p>
+                        </div>
+                    
+                </li>
+            </ul>
+            </div>
+        </div>
+    
+        <div class="tech-category">
+            <div class="category-header">
+                Outils cloud
+            </div>
+            <div class="category-content">
+    
+            <div class="description-box">
+                <h4>À propos</h4>
+                <p>Description for Outils cloud</p>
+            </div>
+        <ul class="tech-list">
+                <li class="tech-item">
+                    GCP
+                    
+                        <div class="description-box">
+                            <p>Description for GCP</p>
+                        </div>
+                    
+                </li>
+            </ul>
+            </div>
+        </div>
+    
+        <div class="tech-category">
+            <div class="category-header">
+                Outils de Modelisation
+            </div>
+            <div class="category-content">
+    
+            <div class="description-box">
+                <h4>À propos</h4>
+                <p>Description for Outils de Modelisation</p>
+            </div>
+        <ul class="tech-list">
+                <li class="tech-item">
+                    UML(draw.io)
+                    
+                        <div class="description-box">
+                            <p>Description for UML(draw.io)</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    UI_UX  (figma)
+                    
+                        <div class="description-box">
+                            <p>Description for UI_UX  (figma)</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    Api (RAML YAML)
+                    
+                        <div class="description-box">
+                            <p>Description for Api (RAML YAML)</p>
+                        </div>
+                    
+                </li>
+            </ul>
+            </div>
+        </div>
+    
+        <div class="tech-category">
+            <div class="category-header">
+                Base de données et moteurs de recherche
+            </div>
+            <div class="category-content">
+    
+            <div class="description-box">
+                <h4>À propos</h4>
+                <p>Description for Base de données et moteurs de recherche</p>
+            </div>
+        <ul class="tech-list">
+                <li class="tech-item">
+                    Postgres
+                    
+                        <div class="description-box">
+                            <p>Description for Postgres</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    Oracle
+                    
+                        <div class="description-box">
+                            <p>Description for Oracle</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    Mysql
+                    
+                        <div class="description-box">
+                            <p>Description for Mysql</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    MamngoDB
+                    
+                        <div class="description-box">
+                            <p>Description for MamngoDB</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    Elasticsearch
+                    
+                        <div class="description-box">
+                            <p>Description for Elasticsearch</p>
+                        </div>
+                    
+                </li>
+            </ul>
+            </div>
+        </div>
+    
+        <div class="tech-category">
+            <div class="category-header">
+                Architectures logiciel
+            </div>
+            <div class="category-content">
+    
+            <div class="description-box">
+                <h4>À propos</h4>
+                <p>Description for Architectures logiciel</p>
+            </div>
+        <ul class="tech-list">
+                <li class="tech-item">
+                    Layered
+                    
+                        <div class="description-box">
+                            <p>Description for Layered</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    Mvc
+                    
+                        <div class="description-box">
+                            <p>Description for Mvc</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    Microservice
+                    
+                        <div class="description-box">
+                            <p>Description for Microservice</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    Hexagonal
+                    
+                        <div class="description-box">
+                            <p>Description for Hexagonal</p>
+                        </div>
+                    
+                </li>
+            </ul>
+            </div>
+        </div>
+    
+        <div class="tech-category">
+            <div class="category-header">
+                Principes de l'ingénierie  logiciel
+            </div>
+            <div class="category-content">
+    
+            <div class="description-box">
+                <h4>À propos</h4>
+                <p>Description for Principes de l'ingénierie  logiciel</p>
+            </div>
+        <ul class="tech-list">
+                <li class="tech-item">
+                    Solid
+                    
+                        <div class="description-box">
+                            <p>Description for Solid</p>
+                        </div>
+                    
+                </li>
+            
+                <li class="tech-item">
+                    Clean code
+                    
+                        <div class="description-box">
+                            <p>Description for Clean code</p>
+                        </div>
+                    
+                </li>
+            </ul>
+            </div>
+        </div>
+    
+        <div class="tech-category">
+            <div class="category-header">
+                Projets MVP
+            </div>
+            <div class="category-content">
+    
+            <div class="description-box">
+                <h4>À propos</h4>
+                <p>Description for Projets MVP</p>
+            </div>
+        
+            </div>
+        </div>
+    
+        <div class="tech-category">
+            <div class="category-header">
+                Projets POCs
+            </div>
+            <div class="category-content">
+    
+            <div class="description-box">
+                <h4>À propos</h4>
+                <p>Description for Projets POCs</p>
+            </div>
+        
+            </div>
+        </div>
+    </div>
+    </main>
 </body>
 </html>
