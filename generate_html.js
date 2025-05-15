@@ -7,10 +7,62 @@ if (fs.existsSync('index.html')) {
     console.log('Ancien fichier index.html supprimé.');
 }
 
-// Charger la structure depuis create_structure.js
-const structureContent = fs.readFileSync('create_structure.js', 'utf8');
-const structureMatch = structureContent.match(/const structure = ({[\s\S]*?});/);
-const structure = JSON.parse(structureMatch[1]);
+// Fonction pour lire récursivement la structure des dossiers
+function scanDirectory(dirPath) {
+    try {
+        if (!fs.existsSync(dirPath)) {
+            console.log(`Le dossier ${dirPath} n'existe pas`);
+            return {};
+        }
+
+        const items = {};
+        const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+        
+        console.log(`Scanning directory: ${dirPath}`);
+        
+        for (const entry of entries) {
+            if (entry.isDirectory()) {
+                const fullPath = path.join(dirPath, entry.name);
+                console.log(`Found directory: ${entry.name} in ${dirPath}`);
+                items[entry.name] = scanDirectory(fullPath);
+            }
+        }
+
+        return items;
+    } catch (error) {
+        console.error(`Erreur lors du scan du dossier ${dirPath}:`, error);
+        return {};
+    }
+}
+
+// Fonction pour lire le fichier description.json
+function getDescription(folderPath) {
+    try {
+        const descPath = path.join(folderPath, 'description.json');
+        console.log(`Trying to read description from: ${descPath}`);
+        if (fs.existsSync(descPath)) {
+            const content = fs.readFileSync(descPath, 'utf8');
+            const description = JSON.parse(content);
+            console.log(`Description found for ${folderPath}:`, description);
+            return description;
+        } else {
+            console.log(`No description.json found in ${folderPath}`);
+        }
+    } catch (error) {
+        console.error(`Erreur lors de la lecture de description.json dans ${folderPath}:`, error);
+    }
+    return null;
+}
+
+// Générer la structure dynamiquement
+console.log('Début de la génération de la structure...');
+const structure = {
+    "Competences techniques": scanDirectory("Competences techniques"),
+    "Projets MVP": scanDirectory("Projets MVP"),
+    "Projets POCs": scanDirectory("Projets POCs")
+};
+
+console.log('Structure générée:', JSON.stringify(structure, null, 2));
 
 // Définir le style CSS complet
 const styles = `
@@ -209,27 +261,15 @@ const styles = `
     }
 `;
 
-// Fonction pour lire le fichier description.json
-function getDescription(folderPath) {
-    try {
-        const descPath = path.join(folderPath, 'description.json');
-        if (fs.existsSync(descPath)) {
-            const content = fs.readFileSync(descPath, 'utf8');
-            return JSON.parse(content);
-        }
-    } catch (error) {
-        console.error(`Erreur lors de la lecture de description.json dans ${folderPath}:`, error);
-    }
-    return null;
-}
-
 // Fonction pour générer le HTML de la sidebar
 function generateSidebarHTML(structure) {
     let html = '<ul class="folder-list">';
     
     // Compétences techniques
     if (structure["Competences techniques"]) {
-        Object.entries(structure["Competences techniques"]).forEach(([category]) => {
+        console.log('Generating sidebar for Competences techniques');
+        Object.entries(structure["Competences techniques"]).forEach(([category, subItems]) => {
+            console.log(`Adding category to sidebar: ${category}`);
             html += `
                 <li class="folder-item" data-category="${category}">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -242,26 +282,19 @@ function generateSidebarHTML(structure) {
     }
 
     // Projets
-    if (structure["Projets MVP"]) {
-        html += `
-            <li class="folder-item" data-category="Projets MVP">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2 3a1 1 0 0 1 1-1h3l1 1h7a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3z" fill="currentColor"/>
-                </svg>
-                Projets MVP
-            </li>
-        `;
-    }
-    if (structure["Projets POCs"]) {
-        html += `
-            <li class="folder-item" data-category="Projets POCs">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2 3a1 1 0 0 1 1-1h3l1 1h7a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3z" fill="currentColor"/>
-                </svg>
-                Projets POCs
-            </li>
-        `;
-    }
+    ['Projets MVP', 'Projets POCs'].forEach(projectType => {
+        if (structure[projectType] && Object.keys(structure[projectType]).length > 0) {
+            console.log(`Generating sidebar for ${projectType}`);
+            html += `
+                <li class="folder-item" data-category="${projectType}">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 3a1 1 0 0 1 1-1h3l1 1h7a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3z" fill="currentColor"/>
+                    </svg>
+                    ${projectType}
+                </li>
+            `;
+        }
+    });
 
     html += '</ul>';
     return html;
@@ -273,10 +306,12 @@ function generateMainContentHTML(structure) {
     
     // Compétences techniques
     if (structure["Competences techniques"]) {
+        console.log('Generating main content for Competences techniques');
         Object.entries(structure["Competences techniques"]).forEach(([category, items]) => {
             const categoryPath = path.join("Competences techniques", category);
             const description = getDescription(categoryPath);
             
+            console.log(`Generating content for category: ${category}`);
             html += `
                 <div class="description-card" data-category="${category}">
                     <h3 class="description-title">${category}</h3>
@@ -284,11 +319,12 @@ function generateMainContentHTML(structure) {
                     <div class="items-list">
             `;
             
-            Object.entries(items).forEach(([itemName]) => {
+            Object.entries(items).forEach(([itemName, subItems]) => {
                 const itemPath = path.join(categoryPath, itemName);
                 const itemDesc = getDescription(itemPath);
                 
                 if (itemDesc) {
+                    console.log(`Adding item: ${itemName} to category: ${category}`);
                     html += `
                         <div class="description-card">
                             <h4 class="description-title">${itemName}</h4>
@@ -304,6 +340,41 @@ function generateMainContentHTML(structure) {
             `;
         });
     }
+
+    // Ajouter le contenu pour les projets
+    ['Projets MVP', 'Projets POCs'].forEach(projectType => {
+        if (structure[projectType]) {
+            console.log(`Generating content for ${projectType}`);
+            const description = getDescription(projectType);
+            
+            html += `
+                <div class="description-card" data-category="${projectType}">
+                    <h3 class="description-title">${projectType}</h3>
+                    ${description ? `<p class="description-text">${description.description}</p>` : ''}
+                    <div class="items-list">
+            `;
+            
+            Object.entries(structure[projectType]).forEach(([projectName, projectDetails]) => {
+                const projectPath = path.join(projectType, projectName);
+                const projectDesc = getDescription(projectPath);
+                
+                if (projectDesc) {
+                    console.log(`Adding project: ${projectName} to ${projectType}`);
+                    html += `
+                        <div class="description-card">
+                            <h4 class="description-title">${projectName}</h4>
+                            <p class="description-text">${projectDesc.description}</p>
+                        </div>
+                    `;
+                }
+            });
+            
+            html += `
+                    </div>
+                </div>
+            `;
+        }
+    });
 
     return html;
 }
