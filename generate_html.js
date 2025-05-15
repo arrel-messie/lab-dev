@@ -348,10 +348,16 @@ const completeHTML = `
                 item.classList.add('active');
                 
                 const category = item.dataset.category;
+                
                 // Afficher/masquer les descriptions correspondantes
-                document.querySelectorAll('.description-card').forEach(card => {
+                document.querySelectorAll('.content-body > .description-card').forEach(card => {
                     if (card.dataset.category === category) {
                         card.style.display = 'block';
+                        // S'assurer que les items-list à l'intérieur sont visibles
+                        const itemsList = card.querySelector('.items-list');
+                        if (itemsList) {
+                            itemsList.style.display = 'grid';
+                        }
                     } else {
                         card.style.display = 'none';
                     }
@@ -359,7 +365,7 @@ const completeHTML = `
             });
         });
 
-        // Afficher la première catégorie par défaut
+        // Afficher la première catégorie par défaut et s'assurer que sa items-list est visible
         const firstFolder = document.querySelector('.folder-item');
         if (firstFolder) {
             firstFolder.click();
