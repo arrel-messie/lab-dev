@@ -1,5 +1,13 @@
 const fs = require('fs');
 const path = require('path');
+const marked = require('marked');
+
+// Configuration de marked pour une sortie sécurisée
+marked.setOptions({
+    headerIds: false,
+    mangle: false,
+    sanitize: true
+});
 
 // Vérifier si index.html existe et le supprimer
 if (fs.existsSync('index.html')) {
@@ -35,6 +43,21 @@ function scanDirectory(dirPath) {
     }
 }
 
+// Fonction pour lire le contenu Markdown des notes
+function getNotes(folderPath) {
+    try {
+        const notesPath = path.join(folderPath, 'notes.md');
+        if (fs.existsSync(notesPath)) {
+            console.log(`Reading notes from: ${notesPath}`);
+            const content = fs.readFileSync(notesPath, 'utf8');
+            return marked.parse(content);
+        }
+    } catch (error) {
+        console.error(`Erreur lors de la lecture des notes dans ${folderPath}:`, error);
+    }
+    return null;
+}
+
 // Fonction pour lire le fichier description.json
 function getDescription(folderPath) {
     try {
@@ -43,6 +66,11 @@ function getDescription(folderPath) {
         if (fs.existsSync(descPath)) {
             const content = fs.readFileSync(descPath, 'utf8');
             const description = JSON.parse(content);
+            // Vérifier si des notes existent
+            const notes = getNotes(folderPath);
+            if (notes) {
+                description.notes = notes;
+            }
             console.log(`Description found for ${folderPath}:`, description);
             return description;
         } else {
@@ -280,6 +308,34 @@ const styles = `
             display: block;
         }
     }
+
+    .notes-section {
+        margin-top: var(--spacing-3);
+        padding: var(--spacing-3);
+        background: var(--color-canvas-subtle);
+        border: 1px solid var(--color-border-default);
+        border-radius: 6px;
+        display: none;
+    }
+
+    .notes-section h3 {
+        margin-bottom: var(--spacing-2);
+        color: var(--color-fg-default);
+    }
+
+    .notes-content {
+        color: var(--color-fg-muted);
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .description-card.has-notes {
+        cursor: pointer;
+    }
+
+    .description-card.has-notes:hover {
+        border-color: var(--color-accent-fg);
+    }
 `;
 
 // Fonction pour générer le HTML de la sidebar
@@ -332,68 +388,86 @@ function generateMainContentHTML(structure) {
             const categoryPath = path.join("Competences techniques", category);
             const description = getDescription(categoryPath);
             
-            console.log(`Generating content for category: ${category}`);
-            html += `
-                <div class="description-card" data-category="${category}">
-                    <h3 class="description-title">${category}</h3>
-                    ${description ? `<p class="description-text">${description.description}</p>` : ''}
-                    <div class="items-list">
-            `;
-            
-            Object.entries(items).forEach(([itemName, subItems]) => {
-                const itemPath = path.join(categoryPath, itemName);
-                const itemDesc = getDescription(itemPath);
+            if (description) {  // Ne générer que si description.json existe
+                console.log(`Generating content for category: ${category}`);
+                html += `
+                    <div class="description-card" data-category="${category}">
+                        <h3 class="description-title">${category}</h3>
+                        <p class="description-text">${description.description}</p>
+                        <div class="items-list">
+                `;
                 
-                if (itemDesc) {
-                    console.log(`Adding item: ${itemName} to category: ${category}`);
-                    html += `
-                        <div class="description-card">
-                            <h4 class="description-title">${itemName}</h4>
-                            <p class="description-text">${itemDesc.description}</p>
+                Object.entries(items).forEach(([itemName, subItems]) => {
+                    const itemPath = path.join(categoryPath, itemName);
+                    const itemDesc = getDescription(itemPath);
+                    
+                    if (itemDesc) {  // Ne générer que si description.json existe
+                        const hasNotes = itemDesc.notes ? 'has-notes' : '';
+                        const notesData = itemDesc.notes ? `data-notes="${encodeURIComponent(itemDesc.notes)}"` : '';
+                        
+                        console.log(`Adding item: ${itemName} to category: ${category}`);
+                        html += `
+                            <div class="description-card ${hasNotes}" ${notesData}>
+                                <h4 class="description-title">${itemName}</h4>
+                                <p class="description-text">${itemDesc.description}</p>
+                            </div>
+                        `;
+                    }
+                });
+                
+                html += `
                         </div>
-                    `;
-                }
-            });
-            
-            html += `
+                        <div class="notes-section">
+                            <h3>Notes</h3>
+                            <div class="notes-content"></div>
+                        </div>
                     </div>
-                </div>
-            `;
+                `;
+            }
         });
     }
 
-    // Ajouter le contenu pour les projets
+    // Ajouter le contenu pour les projets avec la même logique
     ['Projets MVP', 'Projets POCs'].forEach(projectType => {
         if (structure[projectType]) {
             console.log(`Generating content for ${projectType}`);
             const description = getDescription(projectType);
             
-            html += `
-                <div class="description-card" data-category="${projectType}">
-                    <h3 class="description-title">${projectType}</h3>
-                    ${description ? `<p class="description-text">${description.description}</p>` : ''}
-                    <div class="items-list">
-            `;
-            
-            Object.entries(structure[projectType]).forEach(([projectName, projectDetails]) => {
-                const projectPath = path.join(projectType, projectName);
-                const projectDesc = getDescription(projectPath);
+            if (description) {  // Ne générer que si description.json existe
+                html += `
+                    <div class="description-card" data-category="${projectType}">
+                        <h3 class="description-title">${projectType}</h3>
+                        <p class="description-text">${description.description}</p>
+                        <div class="items-list">
+                `;
                 
-                if (projectDesc) {
-                    console.log(`Adding project: ${projectName} to ${projectType}`);
-                    html += `
-                        <div class="description-card">
-                            <h4 class="description-title">${projectName}</h4>
-                            <p class="description-text">${projectDesc.description}</p>
+                Object.entries(structure[projectType]).forEach(([projectName, projectDetails]) => {
+                    const projectPath = path.join(projectType, projectName);
+                    const projectDesc = getDescription(projectPath);
+                    
+                    if (projectDesc) {  // Ne générer que si description.json existe
+                        const hasNotes = projectDesc.notes ? 'has-notes' : '';
+                        const notesData = projectDesc.notes ? `data-notes="${encodeURIComponent(projectDesc.notes)}"` : '';
+                        
+                        console.log(`Adding project: ${projectName} to ${projectType}`);
+                        html += `
+                            <div class="description-card ${hasNotes}" ${notesData}>
+                                <h4 class="description-title">${projectName}</h4>
+                                <p class="description-text">${projectDesc.description}</p>
+                            </div>
+                        `;
+                    }
+                });
+                
+                html += `
                         </div>
-                    `;
-                }
-            });
-            
-            html += `
+                        <div class="notes-section">
+                            <h3>Notes</h3>
+                            <div class="notes-content"></div>
+                        </div>
                     </div>
-                </div>
-            `;
+                `;
+            }
         }
     });
 
@@ -455,6 +529,11 @@ const completeHTML = `
                         if (itemsList) {
                             itemsList.style.display = 'grid';
                         }
+                        // Cacher la section notes
+                        const notesSection = card.querySelector('.notes-section');
+                        if (notesSection) {
+                            notesSection.style.display = 'none';
+                        }
                     } else {
                         card.style.display = 'none';
                     }
@@ -462,7 +541,22 @@ const completeHTML = `
             });
         });
 
-        // Afficher la première catégorie par défaut et s'assurer que sa items-list est visible
+        // Gestion des clics sur les items avec notes
+        document.querySelectorAll('.description-card.has-notes').forEach(item => {
+            item.addEventListener('click', () => {
+                const notes = decodeURIComponent(item.dataset.notes);
+                const card = item.closest('.description-card[data-category]');
+                const notesSection = card.querySelector('.notes-section');
+                const notesContent = card.querySelector('.notes-content');
+                
+                if (notesSection && notesContent) {
+                    notesContent.innerHTML = notes;
+                    notesSection.style.display = 'block';
+                }
+            });
+        });
+
+        // Afficher la première catégorie par défaut
         const firstFolder = document.querySelector('.folder-item');
         if (firstFolder) {
             firstFolder.click();

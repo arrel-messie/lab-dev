@@ -220,6 +220,34 @@
             display: block;
         }
     }
+
+    .notes-section {
+        margin-top: var(--spacing-3);
+        padding: var(--spacing-3);
+        background: var(--color-canvas-subtle);
+        border: 1px solid var(--color-border-default);
+        border-radius: 6px;
+        display: none;
+    }
+
+    .notes-section h3 {
+        margin-bottom: var(--spacing-2);
+        color: var(--color-fg-default);
+    }
+
+    .notes-content {
+        color: var(--color-fg-muted);
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .description-card.has-notes {
+        cursor: pointer;
+    }
+
+    .description-card.has-notes:hover {
+        border-color: var(--color-accent-fg);
+    }
 </style>
 </head>
 <body>
@@ -321,325 +349,377 @@
             </header>
             <div class="content-body">
                 
-                <div class="description-card" data-category="Architectures logiciel">
-                    <h3 class="description-title">Architectures logiciel</h3>
-                    <p class="description-text">Description for Architectures logiciel</p>
-                    <div class="items-list">
-            
-                        <div class="description-card">
-                            <h4 class="description-title">Hexagonal</h4>
-                            <p class="description-text">Description for Hexagonal</p>
+                    <div class="description-card" data-category="Architectures logiciel">
+                        <h3 class="description-title">Architectures logiciel</h3>
+                        <p class="description-text">Description for Architectures logiciel</p>
+                        <div class="items-list">
+                
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EHexagonal%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Hexagonal</h4>
+                                <p class="description-text">Description for Hexagonal</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3ELayered%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Layered</h4>
+                                <p class="description-text">Description for Layered</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EArchitecture%20Microservices%3C%2Fh1%3E%0A%3Ch2%3EPrincipes%20appliqu%C3%A9s%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3ED%C3%A9coupage%20par%20domaine%20m%C3%A9tier%3C%2Fli%3E%0A%3Cli%3EBase%20de%20donn%C3%A9es%20par%20service%3C%2Fli%3E%0A%3Cli%3ECommunication%20asynchrone%3C%2Fli%3E%0A%3Cli%3EAPI%20Gateway%3C%2Fli%3E%0A%3Cli%3EService%20Discovery%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EPatterns%20impl%C3%A9ment%C3%A9s%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3ECircuit%20Breaker%3C%2Fli%3E%0A%3Cli%3ECQRS%3C%2Fli%3E%0A%3Cli%3EEvent%20Sourcing%3C%2Fli%3E%0A%3Cli%3ESaga%20Pattern%3C%2Fli%3E%0A%3Cli%3EBackend%20for%20Frontend%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ETechnologies%20utilis%C3%A9es%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3ESpring%20Cloud%3C%2Fli%3E%0A%3Cli%3EKafka%3C%2Fli%3E%0A%3Cli%3EDocker%3C%2Fli%3E%0A%3Cli%3EKubernetes%3C%2Fli%3E%0A%3Cli%3EService%20Mesh%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Microservice</h4>
+                                <p class="description-text">Description for Microservice</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EMvc%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Mvc</h4>
+                                <p class="description-text">Description for Mvc</p>
+                            </div>
+                        
                         </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">Layered</h4>
-                            <p class="description-text">Description for Layered</p>
+                        <div class="notes-section">
+                            <h3>Notes</h3>
+                            <div class="notes-content"></div>
                         </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">Microservice</h4>
-                            <p class="description-text">Description for Microservice</p>
-                        </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">Mvc</h4>
-                            <p class="description-text">Description for Mvc</p>
-                        </div>
-                    
                     </div>
-                </div>
-            
-                <div class="description-card" data-category="Base de données et moteurs de recherche">
-                    <h3 class="description-title">Base de données et moteurs de recherche</h3>
-                    <p class="description-text">Description for Base de données et moteurs de recherche</p>
-                    <div class="items-list">
-            
-                        <div class="description-card">
-                            <h4 class="description-title">Elasticsearch</h4>
-                            <p class="description-text">Description for Elasticsearch</p>
+                
+                    <div class="description-card" data-category="Base de données et moteurs de recherche">
+                        <h3 class="description-title">Base de données et moteurs de recherche</h3>
+                        <p class="description-text">Description for Base de données et moteurs de recherche</p>
+                        <div class="items-list">
+                
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EElasticsearch%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Elasticsearch</h4>
+                                <p class="description-text">Description for Elasticsearch</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EMamngoDB%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">MamngoDB</h4>
+                                <p class="description-text">Description for MamngoDB</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EMysql%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Mysql</h4>
+                                <p class="description-text">Description for Mysql</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EOracle%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Oracle</h4>
+                                <p class="description-text">Description for Oracle</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EPostgres%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Postgres</h4>
+                                <p class="description-text">Description for Postgres</p>
+                            </div>
+                        
                         </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">MamngoDB</h4>
-                            <p class="description-text">Description for MamngoDB</p>
+                        <div class="notes-section">
+                            <h3>Notes</h3>
+                            <div class="notes-content"></div>
                         </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">Mysql</h4>
-                            <p class="description-text">Description for Mysql</p>
-                        </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">Oracle</h4>
-                            <p class="description-text">Description for Oracle</p>
-                        </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">Postgres</h4>
-                            <p class="description-text">Description for Postgres</p>
-                        </div>
-                    
                     </div>
-                </div>
-            
-                <div class="description-card" data-category="Bibliothèques">
-                    <h3 class="description-title">Bibliothèques</h3>
-                    <p class="description-text">Description for Bibliothèques</p>
-                    <div class="items-list">
-            
-                        <div class="description-card">
-                            <h4 class="description-title">Hibernate</h4>
-                            <p class="description-text">Description for Hibernate</p>
+                
+                    <div class="description-card" data-category="Bibliothèques">
+                        <h3 class="description-title">Bibliothèques</h3>
+                        <p class="description-text">Description for Bibliothèques</p>
+                        <div class="items-list">
+                
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EHibernate%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Hibernate</h4>
+                                <p class="description-text">Description for Hibernate</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EKafka%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Kafka</h4>
+                                <p class="description-text">Description for Kafka</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EOpenApi%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">OpenApi</h4>
+                                <p class="description-text">Description for OpenApi</p>
+                            </div>
+                        
                         </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">Kafka</h4>
-                            <p class="description-text">Description for Kafka</p>
+                        <div class="notes-section">
+                            <h3>Notes</h3>
+                            <div class="notes-content"></div>
                         </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">OpenApi</h4>
-                            <p class="description-text">Description for OpenApi</p>
-                        </div>
-                    
                     </div>
-                </div>
-            
-                <div class="description-card" data-category="Certifications">
-                    <h3 class="description-title">Certifications</h3>
-                    <p class="description-text">Description for Certifications</p>
-                    <div class="items-list">
-            
-                        <div class="description-card">
-                            <h4 class="description-title">Java ocp 21</h4>
-                            <p class="description-text">Description for Java OCP 21</p>
+                
+                    <div class="description-card" data-category="Certifications">
+                        <h3 class="description-title">Certifications</h3>
+                        <p class="description-text">Description for Certifications</p>
+                        <div class="items-list">
+                
+                            <div class="description-card " >
+                                <h4 class="description-title">Java ocp 21</h4>
+                                <p class="description-text">Description for Java OCP 21</p>
+                            </div>
+                        
                         </div>
-                    
+                        <div class="notes-section">
+                            <h3>Notes</h3>
+                            <div class="notes-content"></div>
+                        </div>
                     </div>
-                </div>
-            
-                <div class="description-card" data-category="Frameworks">
-                    <h3 class="description-title">Frameworks</h3>
-                    <p class="description-text">Description for Frameworks</p>
-                    <div class="items-list">
-            
-                        <div class="description-card">
-                            <h4 class="description-title">Angular</h4>
-                            <p class="description-text">Description for Angular</p>
+                
+                    <div class="description-card" data-category="Frameworks">
+                        <h3 class="description-title">Frameworks</h3>
+                        <p class="description-text">Description for Frameworks</p>
+                        <div class="items-list">
+                
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EAngular%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Angular</h4>
+                                <p class="description-text">Description for Angular</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EDjango%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Django</h4>
+                                <p class="description-text">Description for Django</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EMicronaut%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Micronaut</h4>
+                                <p class="description-text">Description for Micronaut</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EMuleSoft%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">MuleSoft</h4>
+                                <p class="description-text">Description for MuleSoft</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EQuarkus%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Quarkus</h4>
+                                <p class="description-text">Description for Quarkus</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3ESpring%20Framework%3C%2Fh1%3E%0A%3Ch2%3EComposants%20ma%C3%AEtris%C3%A9s%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3ESpring%20Boot%3C%2Fli%3E%0A%3Cli%3ESpring%20MVC%3C%2Fli%3E%0A%3Cli%3ESpring%20Data%20JPA%3C%2Fli%3E%0A%3Cli%3ESpring%20Security%3C%2Fli%3E%0A%3Cli%3ESpring%20Cloud%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EBonnes%20pratiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConfiguration%20bas%C3%A9e%20sur%20Java%3C%2Fli%3E%0A%3Cli%3ETests%20d%26%2339%3Bint%C3%A9gration%3C%2Fli%3E%0A%3Cli%3EGestion%20des%20d%C3%A9pendances%3C%2Fli%3E%0A%3Cli%3ES%C3%A9curit%C3%A9%20des%20applications%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EArchitecture%20microservices%3C%2Fli%3E%0A%3Cli%3EAPI%20RESTful%3C%2Fli%3E%0A%3Cli%3EAuthentification%20OAuth2%3C%2Fli%3E%0A%3Cli%3EMonitoring%20avec%20Actuator%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Spring</h4>
+                                <p class="description-text">Description for Spring</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EVueJS%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">VueJS</h4>
+                                <p class="description-text">Description for VueJS</p>
+                            </div>
+                        
                         </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">Django</h4>
-                            <p class="description-text">Description for Django</p>
+                        <div class="notes-section">
+                            <h3>Notes</h3>
+                            <div class="notes-content"></div>
                         </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">Micronaut</h4>
-                            <p class="description-text">Description for Micronaut</p>
-                        </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">MuleSoft</h4>
-                            <p class="description-text">Description for MuleSoft</p>
-                        </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">Quarkus</h4>
-                            <p class="description-text">Description for Quarkus</p>
-                        </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">Spring</h4>
-                            <p class="description-text">Description for Spring</p>
-                        </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">VueJS</h4>
-                            <p class="description-text">Description for VueJS</p>
-                        </div>
-                    
                     </div>
-                </div>
-            
-                <div class="description-card" data-category="Langages de programmation">
-                    <h3 class="description-title">Langages de programmation</h3>
-                    <p class="description-text">Description for Langages de programmation</p>
-                    <div class="items-list">
-            
-                        <div class="description-card">
-                            <h4 class="description-title">C++</h4>
-                            <p class="description-text">Description for C++</p>
+                
+                    <div class="description-card" data-category="Langages de programmation">
+                        <h3 class="description-title">Langages de programmation</h3>
+                        <p class="description-text">Description for Langages de programmation</p>
+                        <div class="items-list">
+                
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EC%2B%2B%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">C++</h4>
+                                <p class="description-text">Description for C++</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EJava%3C%2Fh1%3E%0A%3Ch2%3EPoints%20cl%C3%A9s%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3ELangage%20orient%C3%A9%20objet%3C%2Fli%3E%0A%3Cli%3EForte%20typation%3C%2Fli%3E%0A%3Cli%3EGestion%20automatique%20de%20la%20m%C3%A9moire%20(Garbage%20Collector)%3C%2Fli%3E%0A%3Cli%3EPortabilit%C3%A9%20(%26quot%3BWrite%20Once%2C%20Run%20Anywhere%26quot%3B)%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EExp%C3%A9rience%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3ED%C3%A9veloppement%20d%26%2339%3Bapplications%20d%26%2339%3Bentreprise%3C%2Fli%3E%0A%3Cli%3EUtilisation%20des%20derni%C3%A8res%20fonctionnalit%C3%A9s%20(Java%208%2B)%3C%2Fli%3E%0A%3Cli%3EProgrammation%20concurrente%3C%2Fli%3E%0A%3Cli%3EOptimisation%20des%20performances%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EProjets%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3ED%C3%A9veloppement%20de%20microservices%3C%2Fli%3E%0A%3Cli%3EApplications%20web%20avec%20Spring%20Boot%3C%2Fli%3E%0A%3Cli%3ETraitement%20de%20donn%C3%A9es%20en%20temps%20r%C3%A9el%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Java</h4>
+                                <p class="description-text">Description for Java</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EJavaScript%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">JavaScript</h4>
+                                <p class="description-text">Description for JavaScript</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EKSQL%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">KSQL</h4>
+                                <p class="description-text">Description for KSQL</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EPython%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Python</h4>
+                                <p class="description-text">Description for Python</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EScala%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Scala</h4>
+                                <p class="description-text">Description for Scala</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EShell%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Shell</h4>
+                                <p class="description-text">Description for Shell</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3Eswift%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">swift</h4>
+                                <p class="description-text">Description for Langage Swift</p>
+                            </div>
+                        
                         </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">Java</h4>
-                            <p class="description-text">Description for Java</p>
+                        <div class="notes-section">
+                            <h3>Notes</h3>
+                            <div class="notes-content"></div>
                         </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">JavaScript</h4>
-                            <p class="description-text">Description for JavaScript</p>
-                        </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">KSQL</h4>
-                            <p class="description-text">Description for KSQL</p>
-                        </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">Python</h4>
-                            <p class="description-text">Description for Python</p>
-                        </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">Scala</h4>
-                            <p class="description-text">Description for Scala</p>
-                        </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">Shell</h4>
-                            <p class="description-text">Description for Shell</p>
-                        </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">swift</h4>
-                            <p class="description-text">Description for Langage Swift</p>
-                        </div>
-                    
                     </div>
-                </div>
-            
-                <div class="description-card" data-category="Outils cloud">
-                    <h3 class="description-title">Outils cloud</h3>
-                    <p class="description-text">Description for Outils cloud</p>
-                    <div class="items-list">
-            
-                        <div class="description-card">
-                            <h4 class="description-title">GCP</h4>
-                            <p class="description-text">Description for GCP</p>
+                
+                    <div class="description-card" data-category="Outils cloud">
+                        <h3 class="description-title">Outils cloud</h3>
+                        <p class="description-text">Description for Outils cloud</p>
+                        <div class="items-list">
+                
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EGCP%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">GCP</h4>
+                                <p class="description-text">Description for GCP</p>
+                            </div>
+                        
                         </div>
-                    
+                        <div class="notes-section">
+                            <h3>Notes</h3>
+                            <div class="notes-content"></div>
+                        </div>
                     </div>
-                </div>
-            
-                <div class="description-card" data-category="Outils de Modelisation">
-                    <h3 class="description-title">Outils de Modelisation</h3>
-                    <p class="description-text">Description for Outils de Modelisation</p>
-                    <div class="items-list">
-            
-                        <div class="description-card">
-                            <h4 class="description-title">Api (RAML YAML)</h4>
-                            <p class="description-text">Description for Api (RAML YAML)</p>
+                
+                    <div class="description-card" data-category="Outils de Modelisation">
+                        <h3 class="description-title">Outils de Modelisation</h3>
+                        <p class="description-text">Description for Outils de Modelisation</p>
+                        <div class="items-list">
+                
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EApi%20(RAML%20YAML)%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Api (RAML YAML)</h4>
+                                <p class="description-text">Description for Api (RAML YAML)</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EUI_UX%20%20(figma)%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">UI_UX  (figma)</h4>
+                                <p class="description-text">Description for UI_UX  (figma)</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EUML(draw.io)%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">UML(draw.io)</h4>
+                                <p class="description-text">Description for UML(draw.io)</p>
+                            </div>
+                        
                         </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">UI_UX  (figma)</h4>
-                            <p class="description-text">Description for UI_UX  (figma)</p>
+                        <div class="notes-section">
+                            <h3>Notes</h3>
+                            <div class="notes-content"></div>
                         </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">UML(draw.io)</h4>
-                            <p class="description-text">Description for UML(draw.io)</p>
-                        </div>
-                    
                     </div>
-                </div>
-            
-                <div class="description-card" data-category="Outils de Test  et qualité logiciel">
-                    <h3 class="description-title">Outils de Test  et qualité logiciel</h3>
-                    <p class="description-text">Description for Outils de Test  et qualité logiciel</p>
-                    <div class="items-list">
-            
-                        <div class="description-card">
-                            <h4 class="description-title">Cucumber</h4>
-                            <p class="description-text">Description for Cucumber</p>
+                
+                    <div class="description-card" data-category="Outils de Test  et qualité logiciel">
+                        <h3 class="description-title">Outils de Test  et qualité logiciel</h3>
+                        <p class="description-text">Description for Outils de Test  et qualité logiciel</p>
+                        <div class="items-list">
+                
+                            <div class="description-card has-notes" data-notes="%3Ch1%3ECucumber%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Cucumber</h4>
+                                <p class="description-text">Description for Cucumber</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EJunit5%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Junit5</h4>
+                                <p class="description-text">Description for Junit5</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3ESonaeQube%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">SonaeQube</h4>
+                                <p class="description-text">Description for SonaeQube</p>
+                            </div>
+                        
                         </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">Junit5</h4>
-                            <p class="description-text">Description for Junit5</p>
+                        <div class="notes-section">
+                            <h3>Notes</h3>
+                            <div class="notes-content"></div>
                         </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">SonaeQube</h4>
-                            <p class="description-text">Description for SonaeQube</p>
-                        </div>
-                    
                     </div>
-                </div>
-            
-                <div class="description-card" data-category="Outils dev sec ops">
-                    <h3 class="description-title">Outils dev sec ops</h3>
-                    <p class="description-text">Description for Outils dev sec ops</p>
-                    <div class="items-list">
-            
-                        <div class="description-card">
-                            <h4 class="description-title">Bitbucket</h4>
-                            <p class="description-text">Description for Bitbucket</p>
+                
+                    <div class="description-card" data-category="Outils dev sec ops">
+                        <h3 class="description-title">Outils dev sec ops</h3>
+                        <p class="description-text">Description for Outils dev sec ops</p>
+                        <div class="items-list">
+                
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EBitbucket%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Bitbucket</h4>
+                                <p class="description-text">Description for Bitbucket</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EDocker%3C%2Fh1%3E%0A%3Ch2%3EComp%C3%A9tences%20cl%C3%A9s%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3ECr%C3%A9ation%20de%20Dockerfile%20optimis%C3%A9s%3C%2Fli%3E%0A%3Cli%3EGestion%20des%20images%20et%20conteneurs%3C%2Fli%3E%0A%3Cli%3EDocker%20Compose%3C%2Fli%3E%0A%3Cli%3ER%C3%A9seaux%20Docker%3C%2Fli%3E%0A%3Cli%3EVolumes%20et%20persistance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EBonnes%20pratiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EImages%20multi-stage%3C%2Fli%3E%0A%3Cli%3ES%C3%A9curit%C3%A9%20des%20conteneurs%3C%2Fli%3E%0A%3Cli%3EOptimisation%20des%20layers%3C%2Fli%3E%0A%3Cli%3ELogging%20et%20monitoring%3C%2Fli%3E%0A%3Cli%3EHealth%20checks%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EEnvironnements%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3ED%C3%A9veloppement%20local%3C%2Fli%3E%0A%3Cli%3ECI%2FCD%3C%2Fli%3E%0A%3Cli%3EProduction%3C%2Fli%3E%0A%3Cli%3EOrchestration%20avec%20Kubernetes%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Docker</h4>
+                                <p class="description-text">Description for Docker</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EGit%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Git</h4>
+                                <p class="description-text">Description for Git</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EGitlabCi%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">GitlabCi</h4>
+                                <p class="description-text">Description for GitlabCi</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EJenkins%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Jenkins</h4>
+                                <p class="description-text">Description for Jenkins</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EKubernetes%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Kubernetes</h4>
+                                <p class="description-text">Description for Kubernetes</p>
+                            </div>
+                        
                         </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">Docker</h4>
-                            <p class="description-text">Description for Docker</p>
+                        <div class="notes-section">
+                            <h3>Notes</h3>
+                            <div class="notes-content"></div>
                         </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">Git</h4>
-                            <p class="description-text">Description for Git</p>
-                        </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">GitlabCi</h4>
-                            <p class="description-text">Description for GitlabCi</p>
-                        </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">Jenkins</h4>
-                            <p class="description-text">Description for Jenkins</p>
-                        </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">Kubernetes</h4>
-                            <p class="description-text">Description for Kubernetes</p>
-                        </div>
-                    
                     </div>
-                </div>
-            
-                <div class="description-card" data-category="Principes de l'ingénierie  logiciel">
-                    <h3 class="description-title">Principes de l'ingénierie  logiciel</h3>
-                    <p class="description-text">Description for Principes de l'ingénierie  logiciel</p>
-                    <div class="items-list">
-            
-                        <div class="description-card">
-                            <h4 class="description-title">Clean code</h4>
-                            <p class="description-text">Description for Clean code</p>
+                
+                    <div class="description-card" data-category="Principes de l'ingénierie  logiciel">
+                        <h3 class="description-title">Principes de l'ingénierie  logiciel</h3>
+                        <p class="description-text">Description for Principes de l'ingénierie  logiciel</p>
+                        <div class="items-list">
+                
+                            <div class="description-card has-notes" data-notes="%3Ch1%3EClean%20code%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Clean code</h4>
+                                <p class="description-text">Description for Clean code</p>
+                            </div>
+                        
+                            <div class="description-card has-notes" data-notes="%3Ch1%3ESolid%3C%2Fh1%3E%0A%3Ch2%3EDescription%20d%C3%A9taill%C3%A9e%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EExpertise%20approfondie%3C%2Fli%3E%0A%3Cli%3EExp%C3%A9rience%20pratique%3C%2Fli%3E%0A%3Cli%3EProjets%20r%C3%A9alis%C3%A9s%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3EComp%C3%A9tences%20sp%C3%A9cifiques%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EConception%20et%20architecture%3C%2Fli%3E%0A%3Cli%3EImpl%C3%A9mentation%3C%2Fli%3E%0A%3Cli%3EOptimisation%3C%2Fli%3E%0A%3Cli%3EMaintenance%3C%2Fli%3E%0A%3C%2Ful%3E%0A%3Ch2%3ER%C3%A9alisations%20notables%3C%2Fh2%3E%0A%3Cul%3E%0A%3Cli%3EProjets%20significatifs%3C%2Fli%3E%0A%3Cli%3EAm%C3%A9liorations%20apport%C3%A9es%3C%2Fli%3E%0A%3Cli%3ER%C3%A9sultats%20obtenus%3C%2Fli%3E%0A%3C%2Ful%3E%0A">
+                                <h4 class="description-title">Solid</h4>
+                                <p class="description-text">Description for Solid</p>
+                            </div>
+                        
                         </div>
-                    
-                        <div class="description-card">
-                            <h4 class="description-title">Solid</h4>
-                            <p class="description-text">Description for Solid</p>
+                        <div class="notes-section">
+                            <h3>Notes</h3>
+                            <div class="notes-content"></div>
                         </div>
-                    
                     </div>
-                </div>
-            
-                <div class="description-card" data-category="Projets MVP">
-                    <h3 class="description-title">Projets MVP</h3>
-                    <p class="description-text">Description for Projets MVP</p>
-                    <div class="items-list">
-            
+                
+                    <div class="description-card" data-category="Projets MVP">
+                        <h3 class="description-title">Projets MVP</h3>
+                        <p class="description-text">Description for Projets MVP</p>
+                        <div class="items-list">
+                
+                        </div>
+                        <div class="notes-section">
+                            <h3>Notes</h3>
+                            <div class="notes-content"></div>
+                        </div>
                     </div>
-                </div>
-            
-                <div class="description-card" data-category="Projets POCs">
-                    <h3 class="description-title">Projets POCs</h3>
-                    <p class="description-text">Description for Projets POCs</p>
-                    <div class="items-list">
-            
+                
+                    <div class="description-card" data-category="Projets POCs">
+                        <h3 class="description-title">Projets POCs</h3>
+                        <p class="description-text">Description for Projets POCs</p>
+                        <div class="items-list">
+                
+                        </div>
+                        <div class="notes-section">
+                            <h3>Notes</h3>
+                            <div class="notes-content"></div>
+                        </div>
                     </div>
-                </div>
-            
+                
             </div>
         </main>
     </div>
@@ -663,6 +743,11 @@
                         if (itemsList) {
                             itemsList.style.display = 'grid';
                         }
+                        // Cacher la section notes
+                        const notesSection = card.querySelector('.notes-section');
+                        if (notesSection) {
+                            notesSection.style.display = 'none';
+                        }
                     } else {
                         card.style.display = 'none';
                     }
@@ -670,7 +755,22 @@
             });
         });
 
-        // Afficher la première catégorie par défaut et s'assurer que sa items-list est visible
+        // Gestion des clics sur les items avec notes
+        document.querySelectorAll('.description-card.has-notes').forEach(item => {
+            item.addEventListener('click', () => {
+                const notes = decodeURIComponent(item.dataset.notes);
+                const card = item.closest('.description-card[data-category]');
+                const notesSection = card.querySelector('.notes-section');
+                const notesContent = card.querySelector('.notes-content');
+                
+                if (notesSection && notesContent) {
+                    notesContent.innerHTML = notes;
+                    notesSection.style.display = 'block';
+                }
+            });
+        });
+
+        // Afficher la première catégorie par défaut
         const firstFolder = document.querySelector('.folder-item');
         if (firstFolder) {
             firstFolder.click();

@@ -1,0 +1,12 @@
+{
+  "name": "portfolio-technique",
+  "version": "1.0.0",
+  "description": "Portfolio technique avec support Markdown",
+  "main": "generate_html.js",
+  "dependencies": {
+    "marked": "^9.1.0"
+  },
+  "scripts": {
+    "generate": "node generate_html.js"
+  }
+} 
