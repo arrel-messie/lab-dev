@@ -166,6 +166,8 @@ const styles = `
     .container {
         display: flex;
         height: calc(100vh - 62px);
+        position: relative;
+        z-index: 1;
     }
 
     /* Sidebar */
@@ -309,6 +311,7 @@ const styles = `
         }
     }
 
+    /* Notes Section */
     .notes-section {
         margin-top: var(--spacing-3);
         padding: var(--spacing-3);
@@ -337,6 +340,7 @@ const styles = `
         border-color: var(--color-accent-fg);
     }
 
+    /* Particles.js Styles */
     #particles-js {
         position: fixed;
         top: 0;
@@ -357,15 +361,15 @@ const styles = `
         -webkit-transition: opacity .8s ease, -webkit-transform 1.4s ease;
         transition: opacity .8s ease, transform 1.4s ease;
     }
-
-    .container {
-        position: relative;
-        z-index: 1;
-    }
 `;
 
-// Copier particles.js dans le répertoire de sortie
-fs.copyFileSync('assets/js/particles.min.js', 'particles.min.js');
+// Copier particles.js dans le répertoire assets
+try {
+    fs.copyFileSync('particles.min.js', 'assets/js/particles.min.js');
+    console.log('particles.min.js copied to assets/js directory');
+} catch (error) {
+    console.error('Error copying particles.min.js:', error);
+}
 
 // Fonction pour générer le HTML de la sidebar
 function generateSidebarHTML(structure) {
@@ -539,15 +543,22 @@ const completeHTML = `
             </div>
         </main>
     </div>
-    <script src="particles.min.js"></script>
     <script>
-        // Vérification du chargement de particles.js
-        window.addEventListener('load', function() {
-            console.log('Window loaded');
+        // Fonction pour charger un script de manière asynchrone
+        function loadScript(src, callback) {
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = src;
+            script.onload = callback;
+            document.head.appendChild(script);
+        }
+
+        // Charger particles.js puis l'initialiser
+        loadScript('assets/js/particles.js', function() {
+            console.log('particles.js loaded');
             if (window.particlesJS) {
-                console.log('particles.js is loaded');
+                console.log('Initializing particles.js');
                 try {
-                    // Configuration de particles.js avec des valeurs ajustées
                     particlesJS('particles-js', {
                         particles: {
                             number: {
@@ -632,12 +643,12 @@ const completeHTML = `
                         },
                         retina_detect: true
                     });
-                    console.log('particles.js configuration applied');
+                    console.log('particles.js initialized');
                 } catch (error) {
-                    console.error('Error configuring particles.js:', error);
+                    console.error('Error initializing particles.js:', error);
                 }
             } else {
-                console.error('particles.js is not loaded');
+                console.error('particles.js not available');
             }
         });
 
