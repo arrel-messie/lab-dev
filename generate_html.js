@@ -96,19 +96,19 @@ console.log('Structure générée:', JSON.stringify(structure, null, 2));
 const styles = `
     /* Theme Switcher */
     .theme-switch-wrapper {
-        position: absolute;
-        right: 20px;
-        top: 50%;
-        transform: translateY(-50%);
         display: flex;
         align-items: center;
         gap: 8px;
+        margin-left: auto;
+        padding-right: 20px;
     }
 
     .theme-switch {
         position: relative;
+        display: inline-block;
         width: 50px;
         height: 25px;
+        margin: 0 8px;
     }
 
     .theme-switch input {
@@ -208,6 +208,7 @@ const styles = `
         display: flex;
         align-items: center;
         height: 62px;
+        position: relative;
     }
 
     .header-content {
