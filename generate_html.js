@@ -85,7 +85,7 @@ function getDescription(folderPath) {
 // Générer la structure dynamiquement
 console.log('Début de la génération de la structure...');
 const structure = {
-    "Competences techniques": scanDirectory("Competences techniques"),
+    "Portefeuille de compétence": scanDirectory("Competences techniques"),
     "Projets MVP": scanDirectory("Projets MVP"),
     "Projets POCs": scanDirectory("Projets POCs")
 };
@@ -435,10 +435,10 @@ try {
 function generateSidebarHTML(structure) {
     let html = '<ul class="folder-list">';
     
-    // Compétences techniques
-    if (structure["Competences techniques"]) {
-        console.log('Generating sidebar for Competences techniques');
-        Object.entries(structure["Competences techniques"]).forEach(([category, subItems]) => {
+    // Portefeuille de compétence
+    if (structure["Portefeuille de compétence"]) {
+        console.log('Generating sidebar for Portefeuille de compétence');
+        Object.entries(structure["Portefeuille de compétence"]).forEach(([category, subItems]) => {
             console.log(`Adding category to sidebar: ${category}`);
             html += `
                 <li class="folder-item" data-category="${category}">
@@ -474,10 +474,10 @@ function generateSidebarHTML(structure) {
 function generateMainContentHTML(structure) {
     let html = '';
     
-    // Compétences techniques
-    if (structure["Competences techniques"]) {
-        console.log('Generating main content for Competences techniques');
-        Object.entries(structure["Competences techniques"]).forEach(([category, items]) => {
+    // Portefeuille de compétence
+    if (structure["Portefeuille de compétence"]) {
+        console.log('Generating main content for Portefeuille de compétence');
+        Object.entries(structure["Portefeuille de compétence"]).forEach(([category, items]) => {
             const categoryPath = path.join("Competences techniques", category);
             const description = getDescription(categoryPath);
             
@@ -616,7 +616,7 @@ const completeHTML = `
         </aside>
         <main class="main-content">
             <header class="content-header">
-                <h2 class="content-title">Mes Compétences</h2>
+                <h2 class="content-title">Mon Portefeuille de compétence</h2>
             </header>
             <div class="content-body">
                 ${generateMainContentHTML(structure)}
