@@ -50,6 +50,72 @@ function getNotes(folderPath) {
         if (fs.existsSync(notesPath)) {
             console.log(`Reading notes from: ${notesPath}`);
             const content = fs.readFileSync(notesPath, 'utf8');
+            
+            // Si le contenu contient un diagramme Mermaid, le remplacer par le HTML
+            if (content.includes('```mermaid')) {
+                const htmlDiagram = `
+                    <div class="workflow-diagram">
+                        <div class="phase">
+                            <div class="phase-title">Phase 1: Déclenchement</div>
+                            <div class="phase-content">
+                                <div class="node user">Utilisateur</div>
+                                <div class="arrow">Déclenche</div>
+                                <div class="node pipeline">Pipeline CI/CD</div>
+                            </div>
+                        </div>
+
+                        <div class="phase">
+                            <div class="phase-title">Phase 2: Exécution des Tests</div>
+                            <div class="phase-content">
+                                <div class="node pipeline">Pipeline CI/CD</div>
+                                <div class="node test">Squash TM</div>
+                                
+                                <div class="subphase">
+                                    <div class="subphase-title">Tests Fonctionnels</div>
+                                    <div class="subphase-content">
+                                        <div class="node test">Tests UI</div>
+                                        <div class="node test">Tests API</div>
+                                        <div class="node test">Tests E2E</div>
+                                    </div>
+                                </div>
+
+                                <div class="subphase">
+                                    <div class="subphase-title">Tests de Performance</div>
+                                    <div class="subphase-content">
+                                        <div class="node test">Tests de Charge</div>
+                                        <div class="node test">Tests de Stress</div>
+                                        <div class="node test">Tests de Scalabilité</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="phase">
+                            <div class="phase-title">Phase 3: Analyse et Rapports</div>
+                            <div class="phase-content">
+                                <div class="node report">Rapports de Tests</div>
+                                <div class="node decision">Point de Décision</div>
+                            </div>
+                        </div>
+
+                        <div class="phase">
+                            <div class="phase-title">Phase 4: Décision et Actions</div>
+                            <div class="phase-content">
+                                <div class="node decision">Point de Décision</div>
+                                <div class="arrow">Succès</div>
+                                <div class="node success">Déploiement en Production</div>
+                                <div class="arrow">Échec</div>
+                                <div class="node failure">Débogage et Correction</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Remplacer le diagramme Mermaid par le HTML
+                const contentWithoutMermaid = content.replace(/```mermaid[\s\S]*?```/, htmlDiagram);
+                return marked.parse(contentWithoutMermaid);
+            }
+            
             return marked.parse(content);
         }
     } catch (error) {
@@ -677,6 +743,117 @@ const styles = `
         .theme-switch-wrapper {
             margin-left: 0;
             margin-top: var(--spacing-2);
+        }
+    }
+
+    /* Diagram Styles */
+    .workflow-diagram {
+        width: 100%;
+        max-width: 1200px;
+        margin: 20px auto;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .phase {
+        margin-bottom: 30px;
+        border: 1px solid var(--color-border-default);
+        border-radius: 8px;
+        padding: 15px;
+        background: var(--color-canvas-subtle);
+    }
+
+    .phase-title {
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: var(--color-fg-default);
+        font-size: 16px;
+    }
+
+    .phase-content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .node {
+        padding: 10px 15px;
+        border-radius: 6px;
+        background: var(--color-canvas-default);
+        border: 2px solid var(--color-border-default);
+        position: relative;
+        min-width: 120px;
+        text-align: center;
+    }
+
+    .node::after {
+        content: '';
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 2px;
+        height: 20px;
+        background: var(--color-border-default);
+    }
+
+    .node:last-child::after {
+        display: none;
+    }
+
+    .node.user { background: #f9f; }
+    .node.pipeline { background: #bbf; }
+    .node.test { background: #bfb; }
+    .node.report { background: #fbb; }
+    .node.decision { background: #bbf; }
+    .node.success { background: #bfb; }
+    .node.failure { background: #fbb; }
+
+    .subphase {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+        border: 1px solid var(--color-border-default);
+        border-radius: 6px;
+        background: var(--color-canvas-default);
+    }
+
+    .subphase-title {
+        font-weight: 600;
+        color: var(--color-fg-default);
+        font-size: 14px;
+    }
+
+    .subphase-content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .arrow {
+        position: relative;
+        padding: 0 20px;
+        color: var(--color-fg-muted);
+        font-size: 12px;
+    }
+
+    .arrow::before {
+        content: '→';
+        position: absolute;
+        left: 0;
+    }
+
+    @media (max-width: 768px) {
+        .phase-content {
+            flex-direction: column;
+        }
+
+        .node {
+            width: 100%;
+        }
+
+        .node::after {
+            display: none;
         }
     }
 `;
