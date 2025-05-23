@@ -58,18 +58,29 @@ function getNotes(folderPath) {
                         <div class="phase">
                             <div class="phase-title">Phase 1: Déclenchement</div>
                             <div class="phase-content">
-                                <div class="node user">Utilisateur</div>
-                                <div class="arrow">Déclenche</div>
-                                <div class="node pipeline">Pipeline CI/CD</div>
+                                <div class="node-group">
+                                    <div class="node user">Utilisateur</div>
+                                    <div class="connection">
+                                        <span class="connection-label">Déclenche</span>
+                                    </div>
+                                    <div class="node pipeline">Pipeline CI/CD</div>
+                                </div>
                             </div>
                         </div>
 
                         <div class="phase">
                             <div class="phase-title">Phase 2: Exécution des Tests</div>
                             <div class="phase-content">
-                                <div class="node pipeline">Pipeline CI/CD</div>
-                                <div class="node test">Squash TM</div>
-                                
+                                <div class="node-group">
+                                    <div class="node pipeline">Pipeline CI/CD</div>
+                                    <div class="connection"></div>
+                                    <div class="node test">Squash TM</div>
+                                    <div class="node-row">
+                                        <div class="node test">Tests Selenium</div>
+                                        <div class="node test">Tests OctoPerf</div>
+                                    </div>
+                                </div>
+
                                 <div class="subphase">
                                     <div class="subphase-title">Tests Fonctionnels</div>
                                     <div class="subphase-content">
@@ -93,19 +104,40 @@ function getNotes(folderPath) {
                         <div class="phase">
                             <div class="phase-title">Phase 3: Analyse et Rapports</div>
                             <div class="phase-content">
-                                <div class="node report">Rapports de Tests</div>
-                                <div class="node decision">Point de Décision</div>
+                                <div class="node-group">
+                                    <div class="node-row">
+                                        <div class="node test">Tests UI</div>
+                                        <div class="node test">Tests API</div>
+                                        <div class="node test">Tests E2E</div>
+                                    </div>
+                                    <div class="connection"></div>
+                                    <div class="node report">Rapports de Tests</div>
+                                    <div class="connection"></div>
+                                    <div class="node decision">Point de Décision</div>
+                                </div>
                             </div>
                         </div>
 
                         <div class="phase">
                             <div class="phase-title">Phase 4: Décision et Actions</div>
                             <div class="phase-content">
-                                <div class="node decision">Point de Décision</div>
-                                <div class="arrow">Succès</div>
-                                <div class="node success">Déploiement en Production</div>
-                                <div class="arrow">Échec</div>
-                                <div class="node failure">Débogage et Correction</div>
+                                <div class="node-group">
+                                    <div class="node decision">Point de Décision</div>
+                                    <div class="node-row">
+                                        <div class="connection">
+                                            <span class="connection-label">Succès</span>
+                                        </div>
+                                        <div class="node success">Déploiement en Production</div>
+                                        <div class="connection">
+                                            <span class="connection-label">Échec</span>
+                                        </div>
+                                        <div class="node failure">Débogage et Correction</div>
+                                    </div>
+                                    <div class="return-arrow">
+                                        <span class="connection-label">Retour</span>
+                                    </div>
+                                    <div class="node pipeline">Pipeline CI/CD</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -771,7 +803,7 @@ const styles = `
 
     .phase-content {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
         gap: 20px;
     }
 
@@ -779,25 +811,11 @@ const styles = `
         padding: 10px 15px;
         border-radius: 6px;
         background: var(--color-canvas-default);
-        border: 2px solid var(--color-border-default);
+        border: 2px solid #333;
         position: relative;
         min-width: 120px;
         text-align: center;
-    }
-
-    .node::after {
-        content: '';
-        position: absolute;
-        bottom: -20px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 2px;
-        height: 20px;
-        background: var(--color-border-default);
-    }
-
-    .node:last-child::after {
-        display: none;
+        margin: 10px 0;
     }
 
     .node.user { background: #f9f; }
@@ -816,6 +834,7 @@ const styles = `
         border: 1px solid var(--color-border-default);
         border-radius: 6px;
         background: var(--color-canvas-default);
+        margin: 10px 0;
     }
 
     .subphase-title {
@@ -830,30 +849,67 @@ const styles = `
         gap: 10px;
     }
 
-    .arrow {
+    .connection {
         position: relative;
         padding: 0 20px;
         color: var(--color-fg-muted);
         font-size: 12px;
+        margin: 5px 0;
     }
 
-    .arrow::before {
+    .connection::before {
         content: '→';
         position: absolute;
         left: 0;
     }
 
+    .connection-label {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--color-canvas-default);
+        padding: 0 5px;
+        font-size: 12px;
+        color: var(--color-fg-muted);
+    }
+
+    .node-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .node-row {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin: 10px 0;
+    }
+
+    .return-arrow {
+        position: relative;
+        margin-top: 20px;
+    }
+
+    .return-arrow::before {
+        content: '↺';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 20px;
+        color: var(--color-fg-muted);
+    }
+
     @media (max-width: 768px) {
-        .phase-content {
+        .node-row {
             flex-direction: column;
+            align-items: center;
         }
 
         .node {
             width: 100%;
-        }
-
-        .node::after {
-            display: none;
+            max-width: 300px;
         }
     }
 `;
