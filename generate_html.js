@@ -50,104 +50,156 @@ function getNotes(folderPath) {
         if (fs.existsSync(notesPath)) {
             console.log(`Reading notes from: ${notesPath}`);
             const content = fs.readFileSync(notesPath, 'utf8');
-            
-            // Si le contenu contient un diagramme Mermaid, le remplacer par le HTML
+            // Si le contenu contient un diagramme Mermaid, le remplacer par le HTML/CSS custom
             if (content.includes('```mermaid')) {
                 const htmlDiagram = `
-                    <div class="workflow-diagram">
-                        <div class="phase">
-                            <div class="phase-title">Phase 1: Déclenchement</div>
-                            <div class="phase-content">
-                                <div class="node-group">
-                                    <div class="node user">Utilisateur</div>
-                                    <div class="connection">
-                                        <span class="connection-label">Déclenche</span>
-                                    </div>
-                                    <div class="node pipeline">Pipeline CI/CD</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="phase">
-                            <div class="phase-title">Phase 2: Exécution des Tests</div>
-                            <div class="phase-content">
-                                <div class="node-group">
-                                    <div class="node pipeline">Pipeline CI/CD</div>
-                                    <div class="connection"></div>
-                                    <div class="node test">Squash TM</div>
-                                    <div class="node-row">
-                                        <div class="node test">Tests Selenium</div>
-                                        <div class="node test">Tests OctoPerf</div>
-                                    </div>
-                                </div>
-
-                                <div class="subphase">
-                                    <div class="subphase-title">Tests Fonctionnels</div>
-                                    <div class="subphase-content">
-                                        <div class="node test">Tests UI</div>
-                                        <div class="node test">Tests API</div>
-                                        <div class="node test">Tests E2E</div>
-                                    </div>
-                                </div>
-
-                                <div class="subphase">
-                                    <div class="subphase-title">Tests de Performance</div>
-                                    <div class="subphase-content">
-                                        <div class="node test">Tests de Charge</div>
-                                        <div class="node test">Tests de Stress</div>
-                                        <div class="node test">Tests de Scalabilité</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="phase">
-                            <div class="phase-title">Phase 3: Analyse et Rapports</div>
-                            <div class="phase-content">
-                                <div class="node-group">
-                                    <div class="node-row">
-                                        <div class="node test">Tests UI</div>
-                                        <div class="node test">Tests API</div>
-                                        <div class="node test">Tests E2E</div>
-                                    </div>
-                                    <div class="connection"></div>
-                                    <div class="node report">Rapports de Tests</div>
-                                    <div class="connection"></div>
-                                    <div class="node decision">Point de Décision</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="phase">
-                            <div class="phase-title">Phase 4: Décision et Actions</div>
-                            <div class="phase-content">
-                                <div class="node-group">
-                                    <div class="node decision">Point de Décision</div>
-                                    <div class="node-row">
-                                        <div class="connection">
-                                            <span class="connection-label">Succès</span>
-                                        </div>
-                                        <div class="node success">Déploiement en Production</div>
-                                        <div class="connection">
-                                            <span class="connection-label">Échec</span>
-                                        </div>
-                                        <div class="node failure">Débogage et Correction</div>
-                                    </div>
-                                    <div class="return-arrow">
-                                        <span class="connection-label">Retour</span>
-                                    </div>
-                                    <div class="node pipeline">Pipeline CI/CD</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div class="custom-diagram">
+  <div class="diagram-row">
+    <div class="diagram-box">VCS<br><span class="diagram-sub">Git, SVN, etc.</span></div>
+    <div class="diagram-arrow"></div>
+    <div class="diagram-box">Build</div>
+  </div>
+  <div class="diagram-row">
+    <div class="diagram-spacer"></div>
+    <div class="diagram-arrow vertical"></div>
+    <div class="diagram-box">Jenkins /<br>GitLab CI</div>
+    <div class="diagram-arrow horizontal"></div>
+    <div class="diagram-box">Reporting</div>
+  </div>
+  <div class="diagram-row">
+    <div class="diagram-box orange">Squash</div>
+    <div class="diagram-arrow down"></div>
+    <div class="diagram-box green">Selenium</div>
+    <div class="diagram-arrow down"></div>
+    <div class="diagram-box blue">OctoPerf</div>
+  </div>
+  <div class="diagram-row">
+    <div class="diagram-spacer"></div>
+    <div class="diagram-arrow vertical"></div>
+    <div class="diagram-box">Run Tests</div>
+  </div>
+</div>
+<style>
+.custom-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 32px auto;
+  font-family: sans-serif;
+  gap: 0;
+}
+.diagram-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;
+}
+.diagram-box {
+  min-width: 120px;
+  min-height: 48px;
+  background: #fff;
+  border: 2px solid #222;
+  border-radius: 12px;
+  margin: 12px 8px;
+  padding: 10px 18px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  position: relative;
+  box-shadow: 0 2px 8px #0001;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.diagram-box.orange { background: #ffd580; }
+.diagram-box.green { background: #b6e7a7; }
+.diagram-box.blue { background: #8fd3f4; }
+.diagram-sub {
+  font-size: 0.85em;
+  color: #555;
+  font-weight: 400;
+}
+.diagram-arrow {
+  width: 32px;
+  height: 2px;
+  background: #222;
+  position: relative;
+  margin: 0 4px;
+}
+.diagram-arrow::after {
+  content: '';
+  position: absolute;
+  right: -6px;
+  top: -5px;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 10px solid #222;
+}
+.diagram-arrow.vertical {
+  width: 2px;
+  height: 32px;
+  background: #222;
+  margin: 0 0 0 0;
+}
+.diagram-arrow.vertical::after {
+  content: '';
+  position: absolute;
+  left: -5px;
+  bottom: -6px;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 10px solid #222;
+  border-bottom: none;
+  top: auto;
+  right: auto;
+}
+.diagram-arrow.horizontal {
+  width: 32px;
+  height: 2px;
+  background: #222;
+  margin: 0 4px;
+}
+.diagram-arrow.horizontal::after {
+  content: '';
+  position: absolute;
+  right: -6px;
+  top: -5px;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 10px solid #222;
+}
+.diagram-arrow.down {
+  width: 2px;
+  height: 32px;
+  background: #222;
+  margin: 0 0 0 0;
+}
+.diagram-arrow.down::after {
+  content: '';
+  position: absolute;
+  left: -5px;
+  bottom: -6px;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 10px solid #222;
+  border-bottom: none;
+  top: auto;
+  right: auto;
+}
+.diagram-spacer {
+  width: 120px;
+  height: 1px;
+}
+@media (max-width: 700px) {
+  .custom-diagram { font-size: 0.9em; }
+  .diagram-box { min-width: 80px; padding: 8px 6px; }
+  .diagram-spacer { width: 40px; }
+}
                 `;
-                
-                // Remplacer le diagramme Mermaid par le HTML
+                // Remplacer le diagramme Mermaid par le HTML/CSS custom
                 const contentWithoutMermaid = content.replace(/```mermaid[\s\S]*?```/, htmlDiagram);
                 return marked.parse(contentWithoutMermaid);
             }
-            
             return marked.parse(content);
         }
     } catch (error) {
