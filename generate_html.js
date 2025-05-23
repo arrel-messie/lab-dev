@@ -526,6 +526,118 @@ const styles = `
             gap: 32px;
         }
     }
+
+    /* Item Icons */
+    .item-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+
+    .item-icon {
+        width: 24px;
+        height: 24px;
+        color: var(--color-accent-fg);
+        flex-shrink: 0;
+    }
+
+    .item-icon svg {
+        width: 100%;
+        height: 100%;
+    }
+
+    .description-card {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .description-card .description-title {
+        margin: 0;
+    }
+
+    /* Sidebar Toggle Button */
+    .sidebar-toggle {
+        position: fixed;
+        left: 16px;
+        top: 16px;
+        z-index: 1001;
+        background: var(--color-header-bg);
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar-toggle:hover {
+        transform: scale(1.1);
+    }
+
+    .sidebar-toggle svg {
+        width: 24px;
+        height: 24px;
+        color: var(--color-header-text);
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar-toggle.active svg {
+        transform: rotate(180deg);
+    }
+
+    /* Sidebar Animation */
+    .sidebar {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transform: translateX(0);
+    }
+
+    .sidebar.hidden {
+        transform: translateX(-100%);
+    }
+
+    .main-content {
+        transition: margin-left 0.3s ease;
+        margin-left: 296px;
+    }
+
+    .main-content.expanded {
+        margin-left: 0;
+    }
+
+    @media (max-width: 768px) {
+        .sidebar-toggle {
+            display: flex;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 62px;
+            bottom: 0;
+            z-index: 1000;
+            background: var(--color-canvas-default);
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-content {
+            margin-left: 0;
+        }
+
+        .main-content.expanded {
+            margin-left: 0;
+        }
+    }
+
+    @media (min-width: 769px) {
+        .sidebar-toggle {
+            display: none;
+        }
+    }
 `;
 
 // Lire le contenu de particles.js
@@ -570,7 +682,75 @@ function generateSidebarHTML(structure) {
     return html;
 }
 
-// Fonction pour générer le contenu principal
+// Fonction pour obtenir l'icône appropriée en fonction du nom de l'item
+function getItemIcon(itemName) {
+    const icons = {
+        // Langages de programmation
+        'JavaScript': `<svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"/>
+        </svg>`,
+        'Python': `<svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/>
+        </svg>`,
+        'Java': `<svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8.851 18.56s-.917.534.653.714c1.902.151 2.874.121 4.969-.211 0 0 .552.346 1.321.646-4.699 2.013-10.633-.107-6.943-1.149M8.276 15.933s-1.028.761.542.924c2.032.151 3.636.151 5.74 0 0 0 .384.389.987.602-3.94 1.465-9.08.602-7.269-1.526M13.116 11.475c1.158 1.333-.304 2.533-.304 2.533s2.939-1.518 1.589-3.418c-1.261-1.772-2.228-2.652 3.007-5.688 0-.001-8.216 2.051-4.292 6.573M19.33 20.504s.679.559-.747.991c-3.637 1.115-9.289 1.445-10.937.98-.712-.16.75-.59.75-.59s-1.3-.36-.532-.69c1.67-.79 8.255-1.169 10.559-.98 0 0 .3.28.001.279M8.691 14.71s-1.286.825.452 1.076c2.567.301 5.21.301 7.8 0 0 0 .301.375.904.601-4.24 1.26-9.904.601-9.156-1.677M17.116 17.584c4.503 2.34 1.77 4.674.968 4.811-3.189.53-8.221.03-9.673-.53-.21-.09.375-.66.375-.66s-.6-.45-.3-.72c2.205-1.26 6.704-.75 8.63-.901M14.401 0s2.494 2.494-2.365 6.33c-3.896 3.077-.888 4.832-.001 6.836-2.274-2.053-3.943-3.858-2.824-5.539 1.644-2.469 6.197-4.547 5.19-7.627M9.734 23.924c4.322.277 10.959-.153 11.116-2.198 0 0-.302.6-3.572 1.13-3.688.601-8.162.6-10.937.15 0-.001.553.91 3.393.918M17.64 14.72c.722.902-.18 1.803-.18 1.803s2.204-1.13 1.203-2.704c-.902-1.354-1.803-2.255 2.255-4.207 0 0-6.162 1.504-3.278 5.108M5.772 17.869c-2.017 1.504 1.504 2.704 1.504 2.704-4.57 1.354-10.533.451-11.39-.902-.15-.301.45-.6.45-.6s-.3-.39-.15-.6c1.504-1.203 6.02-.902 9.586-.602M6.824 12.431c-1.504 1.354.15 2.404.15 2.404-3.308 1.203-7.22.602-7.82 0-.15-.15.3-.6.3-.6s-.3-.3-.15-.45c1.203-1.053 4.97-.902 7.52-.354M9.734 2.705c-2.704 1.504 1.203 3.007 1.203 3.007-4.82 1.504-8.132.902-8.732.15-.15-.15.3-.6.3-.6s-.3-.3-.15-.45c1.203-1.203 5.24-1.504 7.379-2.107M17.49 11.23c3.007 1.504-1.203 3.308-1.203 3.308s3.308-1.203 1.804-2.855c-1.203-1.354-2.255-2.255 3.007-4.207 0 0-7.22 1.504-3.608 3.754M5.923 7.325c-1.354 1.203.15 2.255.15 2.255-2.855 1.053-5.24.752-5.54.15-.15-.15.3-.6.3-.6s-.3-.3-.15-.45c1.203-1.053 3.308-.902 5.24-.355M8.276 20.08c4.322.277 10.959-.153 11.116-2.198 0 0-.302.6-3.572 1.13-3.688.601-8.162.6-10.937.15 0-.001.553.91 3.393.918"/>
+        </svg>`,
+        'C++': `<svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M22.394 6c-.167-.29-.398-.543-.652-.69L12.926.22c-.509-.294-1.34-.294-1.848 0L2.26 5.31c-.508.293-.923 1.013-.923 1.6v10.18c0 .294.104.62.271.91.167.29.398.543.652.69l8.816 5.09c.508.293 1.34.293 1.848 0l8.816-5.09c.254-.147.485-.4.652-.69.167-.29.27-.616.27-.91V6.91c.003-.294-.1-.62-.268-.91zM12 19.11c-3.92 0-7.109-3.19-7.109-7.11 0-3.92 3.19-7.11 7.11-7.11a7.133 7.133 0 016.156 3.553l-3.076 1.78a3.567 3.567 0 00-3.08-1.78A3.56 3.56 0 008.444 12 3.56 3.56 0 0012 15.555a3.57 3.57 0 003.08-1.778l3.078 1.777A7.135 7.135 0 0112 19.11zm7.11-6.715h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79zm2.962 0h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79z"/>
+        </svg>`,
+        // Frameworks
+        'React': `<svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 18.5c-3.59 0-6.5-2.91-6.5-6.5S8.41 5.5 12 5.5s6.5 2.91 6.5 6.5-2.91 6.5-6.5 6.5zm0-11c-2.48 0-4.5 2.02-4.5 4.5S9.52 16.5 12 16.5s4.5-2.02 4.5-4.5S14.48 7.5 12 7.5z"/>
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+        </svg>`,
+        'Vue.js': `<svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L2 19h20L12 2zm0 4.5L18.5 17H5.5L12 6.5z"/>
+        </svg>`,
+        'Angular': `<svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L2 19h20L12 2zm0 4.5L18.5 17H5.5L12 6.5z"/>
+        </svg>`,
+        // Base de données
+        'MySQL': `<svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+            <path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
+        </svg>`,
+        'MongoDB': `<svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+            <path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
+        </svg>`,
+        // Outils de développement
+        'Git': `<svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+            <path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
+        </svg>`,
+        'Docker': `<svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+            <path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
+        </svg>`,
+        // Par défaut
+        'default': `<svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+            <path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
+        </svg>`
+    };
+
+    // Chercher une correspondance exacte
+    if (icons[itemName]) {
+        return icons[itemName];
+    }
+
+    // Chercher une correspondance partielle
+    for (const [key, value] of Object.entries(icons)) {
+        if (itemName.toLowerCase().includes(key.toLowerCase())) {
+            return value;
+        }
+    }
+
+    // Retourner l'icône par défaut si aucune correspondance n'est trouvée
+    return icons.default;
+}
+
+// Modifier la fonction generateMainContentHTML pour inclure les icônes
 function generateMainContentHTML(structure) {
     let html = '';
     
@@ -581,7 +761,7 @@ function generateMainContentHTML(structure) {
             const categoryPath = path.join("Competences techniques", category);
             const description = getDescription(categoryPath);
             
-            if (description) {  // Ne générer que si description.json existe
+            if (description) {
                 console.log(`Generating content for category: ${category}`);
                 html += `
                     <div class="description-card" data-category="${category}">
@@ -594,14 +774,18 @@ function generateMainContentHTML(structure) {
                     const itemPath = path.join(categoryPath, itemName);
                     const itemDesc = getDescription(itemPath);
                     
-                    if (itemDesc) {  // Ne générer que si description.json existe
+                    if (itemDesc) {
                         const hasNotes = itemDesc.notes ? 'has-notes' : '';
                         const notesData = itemDesc.notes ? `data-notes="${encodeURIComponent(itemDesc.notes)}"` : '';
+                        const itemIcon = getItemIcon(itemName);
                         
                         console.log(`Adding item: ${itemName} to category: ${category}`);
                         html += `
                             <div class="description-card ${hasNotes}" ${notesData}>
-                                <h4 class="description-title">${itemName}</h4>
+                                <div class="item-header">
+                                    <div class="item-icon">${itemIcon}</div>
+                                    <h4 class="description-title">${itemName}</h4>
+                                </div>
                                 <p class="description-text">${itemDesc.description}</p>
                             </div>
                         `;
@@ -641,11 +825,15 @@ function generateMainContentHTML(structure) {
                     if (projectDesc) {  // Ne générer que si description.json existe
                         const hasNotes = projectDesc.notes ? 'has-notes' : '';
                         const notesData = projectDesc.notes ? `data-notes="${encodeURIComponent(projectDesc.notes)}"` : '';
+                        const projectIcon = getItemIcon(projectName);
                         
                         console.log(`Adding project: ${projectName} to ${projectType}`);
                         html += `
                             <div class="description-card ${hasNotes}" ${notesData}>
-                                <h4 class="description-title">${projectName}</h4>
+                                <div class="item-header">
+                                    <div class="item-icon">${projectIcon}</div>
+                                    <h4 class="description-title">${projectName}</h4>
+                                </div>
                                 <p class="description-text">${projectDesc.description}</p>
                             </div>
                         `;
@@ -678,6 +866,11 @@ const completeHTML = `
     <style>${styles}</style>
 </head>
 <body>
+    <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle Sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+    </button>
     <header class="header">
         <div class="header-content">
             <svg height="32" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="32" fill="currentColor">
@@ -710,10 +903,10 @@ const completeHTML = `
         </div>
     </header>
     <div class="container">
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             ${generateSidebarHTML(structure)}
         </aside>
-        <main class="main-content">
+        <main class="main-content" id="main-content">
             <header class="content-header">
                 <h2 class="content-title">Mon Portefeuille de compétence</h2>
             </header>
@@ -953,6 +1146,46 @@ const completeHTML = `
                 window.pJSDom[0].pJS.fn.vendors.destroypJS();
                 particlesJS('particles-js', particlesConfig);
             }
+        });
+
+        // Gestion du toggle de la sidebar
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('main-content');
+        let isSidebarVisible = true;
+
+        function toggleSidebar() {
+            isSidebarVisible = !isSidebarVisible;
+            sidebar.classList.toggle('hidden');
+            mainContent.classList.toggle('expanded');
+            sidebarToggle.classList.toggle('active');
+            
+            // Sauvegarder l'état dans le localStorage
+            localStorage.setItem('sidebarVisible', isSidebarVisible);
+        }
+
+        // Restaurer l'état de la sidebar au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedSidebarState = localStorage.getItem('sidebarVisible');
+            if (savedSidebarState !== null) {
+                isSidebarVisible = savedSidebarState === 'true';
+                if (!isSidebarVisible) {
+                    sidebar.classList.add('hidden');
+                    mainContent.classList.add('expanded');
+                    sidebarToggle.classList.add('active');
+                }
+            }
+        });
+
+        sidebarToggle.addEventListener('click', toggleSidebar);
+
+        // Fermer la sidebar sur mobile lors du clic sur un élément
+        document.querySelectorAll('.folder-item').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    toggleSidebar();
+                }
+            });
         });
 
         // Gestion des interactions
