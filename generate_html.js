@@ -423,13 +423,8 @@ const styles = `
     }
 `;
 
-// Copier particles.js dans le répertoire assets
-try {
-    fs.copyFileSync('particles.js-master/particles.min.js', 'assets/js/particles.min.js');
-    console.log('particles.min.js copied to assets/js directory');
-} catch (error) {
-    console.error('Error copying particles.min.js:', error);
-}
+// Lire le contenu de particles.js
+const particlesJSContent = fs.readFileSync('particles.js-master/particles.min.js', 'utf8');
 
 // Fonction pour générer le HTML de la sidebar
 function generateSidebarHTML(structure) {
@@ -624,14 +619,7 @@ const completeHTML = `
         </main>
     </div>
     <script>
-        // Fonction pour charger un script de manière asynchrone
-        function loadScript(src, callback) {
-            var script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.src = src;
-            script.onload = callback;
-            document.head.appendChild(script);
-        }
+        ${particlesJSContent}
 
         // Configuration des particules
         const particlesConfig = {
@@ -740,6 +728,21 @@ const completeHTML = `
             retina_detect: true
         };
 
+        // Initialiser particles.js
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.particlesJS) {
+                console.log('Initializing particles.js');
+                try {
+                    particlesJS('particles-js', particlesConfig);
+                    console.log('particles.js initialized');
+                } catch (error) {
+                    console.error('Error initializing particles.js:', error);
+                }
+            } else {
+                console.error('particles.js not available');
+            }
+        });
+
         // Fonction pour mettre à jour les particules lors du changement de thème
         function updateParticlesTheme() {
             if (window.pJSDom && window.pJSDom[0]) {
@@ -751,19 +754,37 @@ const completeHTML = `
             }
         }
 
-        // Charger particles.js puis l'initialiser
-        loadScript('assets/js/particles.min.js', function() {
-            console.log('particles.js loaded');
-            if (window.particlesJS) {
-                console.log('Initializing particles.js');
-                try {
-                    particlesJS('particles-js', particlesConfig);
-                    console.log('particles.js initialized');
-                } catch (error) {
-                    console.error('Error initializing particles.js:', error);
-                }
-            } else {
-                console.error('particles.js not available');
+        // Gestion du thème
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        
+        // Vérifier s'il y a une préférence sauvegardée
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            htmlElement.setAttribute('data-theme', savedTheme);
+            themeToggle.checked = savedTheme === 'dark';
+        } else {
+            // Vérifier la préférence système
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (prefersDark) {
+                htmlElement.setAttribute('data-theme', 'dark');
+                themeToggle.checked = true;
+            }
+        }
+
+        // Gérer le changement de thème
+        themeToggle.addEventListener('change', function() {
+            const newTheme = this.checked ? 'dark' : 'light';
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateParticlesTheme();
+        });
+
+        // Mettre à jour les particules lors du redimensionnement de la fenêtre
+        window.addEventListener('resize', function() {
+            if (window.pJSDom && window.pJSDom[0]) {
+                window.pJSDom[0].pJS.fn.vendors.destroypJS();
+                particlesJS('particles-js', particlesConfig);
             }
         });
 
@@ -818,40 +839,6 @@ const completeHTML = `
         if (firstFolder) {
             firstFolder.click();
         }
-
-        // Gestion du thème
-        const themeToggle = document.getElementById('theme-toggle');
-        const htmlElement = document.documentElement;
-        
-        // Vérifier s'il y a une préférence sauvegardée
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            htmlElement.setAttribute('data-theme', savedTheme);
-            themeToggle.checked = savedTheme === 'dark';
-        } else {
-            // Vérifier la préférence système
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (prefersDark) {
-                htmlElement.setAttribute('data-theme', 'dark');
-                themeToggle.checked = true;
-            }
-        }
-
-        // Gérer le changement de thème
-        themeToggle.addEventListener('change', function() {
-            const newTheme = this.checked ? 'dark' : 'light';
-            htmlElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateParticlesTheme();
-        });
-
-        // Mettre à jour les particules lors du redimensionnement de la fenêtre
-        window.addEventListener('resize', function() {
-            if (window.pJSDom && window.pJSDom[0]) {
-                window.pJSDom[0].pJS.fn.vendors.destroypJS();
-                particlesJS('particles-js', particlesConfig);
-            }
-        });
     </script>
 </body>
 </html>
