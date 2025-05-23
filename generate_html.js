@@ -287,6 +287,7 @@ const styles = `
 
     /* Main Content */
     .main-content {
+        position: relative;
         flex: 1;
         overflow-y: auto;
         padding: var(--spacing-3);
@@ -303,6 +304,11 @@ const styles = `
         font-size: 24px;
         font-weight: 400;
         color: var(--color-fg-default);
+    }
+
+    .content-body {
+        position: relative;
+        z-index: 1;
     }
 
     /* Cards */
@@ -402,13 +408,13 @@ const styles = `
 
     /* Particles.js Styles */
     #particles-js {
-        position: fixed;
+        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: -1;
-        background-color: var(--color-canvas-default);
+        z-index: 0;
+        pointer-events: none;
     }
 
     #particles-js canvas {
@@ -573,7 +579,6 @@ const completeHTML = `
     <style>${styles}</style>
 </head>
 <body>
-    <div id="particles-js"></div>
     <header class="header">
         <div class="header-content">
             <svg height="32" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="32" fill="currentColor">
@@ -616,6 +621,7 @@ const completeHTML = `
             <div class="content-body">
                 ${generateMainContentHTML(structure)}
             </div>
+            <div id="particles-js"></div>
         </main>
     </div>
     <script>
