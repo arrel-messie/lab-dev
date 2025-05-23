@@ -425,7 +425,7 @@ const styles = `
 
 // Copier particles.js dans le répertoire assets
 try {
-    fs.copyFileSync('particles.min.js', 'assets/js/particles.min.js');
+    fs.copyFileSync('particles.js-master/particles.min.js', 'assets/js/particles.min.js');
     console.log('particles.min.js copied to assets/js directory');
 } catch (error) {
     console.error('Error copying particles.min.js:', error);
@@ -633,96 +633,131 @@ const completeHTML = `
             document.head.appendChild(script);
         }
 
+        // Configuration des particules
+        const particlesConfig = {
+            particles: {
+                number: {
+                    value: 100,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: '#40c463'
+                },
+                shape: {
+                    type: ['circle', 'triangle'],
+                    stroke: {
+                        width: 0,
+                        color: '#000000'
+                    },
+                    polygon: {
+                        nb_sides: 5
+                    }
+                },
+                opacity: {
+                    value: 0.6,
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0.1,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 4,
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 2,
+                        size_min: 0.1,
+                        sync: false
+                    }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#40c463',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false,
+                    attract: {
+                        enable: true,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'grab'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 140,
+                        line_linked: {
+                            opacity: 1
+                        }
+                    },
+                    bubble: {
+                        distance: 400,
+                        size: 40,
+                        duration: 2,
+                        opacity: 8,
+                        speed: 3
+                    },
+                    repulse: {
+                        distance: 200,
+                        duration: 0.4
+                    },
+                    push: {
+                        particles_nb: 4
+                    },
+                    remove: {
+                        particles_nb: 2
+                    }
+                }
+            },
+            retina_detect: true
+        };
+
+        // Fonction pour mettre à jour les particules lors du changement de thème
+        function updateParticlesTheme() {
+            if (window.pJSDom && window.pJSDom[0]) {
+                const backgroundColor = getComputedStyle(document.documentElement)
+                    .getPropertyValue('--color-canvas-default').trim();
+                window.pJSDom[0].pJS.particles.line_linked.color = '#40c463';
+                window.pJSDom[0].pJS.particles.color.value = '#40c463';
+                window.pJSDom[0].pJS.fn.particlesRefresh();
+            }
+        }
+
         // Charger particles.js puis l'initialiser
-        loadScript('assets/js/particles.js', function() {
+        loadScript('assets/js/particles.min.js', function() {
             console.log('particles.js loaded');
             if (window.particlesJS) {
                 console.log('Initializing particles.js');
                 try {
-                    particlesJS('particles-js', {
-                        particles: {
-                            number: {
-                                value: 60,
-                                density: {
-                                    enable: true,
-                                    value_area: 1000
-                                }
-                            },
-                            color: {
-                                value: '#40c463'
-                            },
-                            shape: {
-                                type: 'circle'
-                            },
-                            opacity: {
-                                value: 0.3,
-                                random: false,
-                                anim: {
-                                    enable: true,
-                                    speed: 1,
-                                    opacity_min: 0.1,
-                                    sync: false
-                                }
-                            },
-                            size: {
-                                value: 3,
-                                random: true,
-                                anim: {
-                                    enable: true,
-                                    speed: 2,
-                                    size_min: 0.1,
-                                    sync: false
-                                }
-                            },
-                            line_linked: {
-                                enable: true,
-                                distance: 150,
-                                color: '#40c463',
-                                opacity: 0.2,
-                                width: 1
-                            },
-                            move: {
-                                enable: true,
-                                speed: 1.5,
-                                direction: 'none',
-                                random: false,
-                                straight: false,
-                                out_mode: 'out',
-                                bounce: false,
-                                attract: {
-                                    enable: true,
-                                    rotateX: 600,
-                                    rotateY: 1200
-                                }
-                            }
-                        },
-                        interactivity: {
-                            detect_on: 'canvas',
-                            events: {
-                                onhover: {
-                                    enable: true,
-                                    mode: 'grab'
-                                },
-                                onclick: {
-                                    enable: true,
-                                    mode: 'push'
-                                },
-                                resize: true
-                            },
-                            modes: {
-                                grab: {
-                                    distance: 140,
-                                    line_linked: {
-                                        opacity: 0.5
-                                    }
-                                },
-                                push: {
-                                    particles_nb: 3
-                                }
-                            }
-                        },
-                        retina_detect: true
-                    });
+                    particlesJS('particles-js', particlesConfig);
                     console.log('particles.js initialized');
                 } catch (error) {
                     console.error('Error initializing particles.js:', error);
@@ -807,14 +842,14 @@ const completeHTML = `
             const newTheme = this.checked ? 'dark' : 'light';
             htmlElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
-            
-            // Mettre à jour la couleur de fond des particules
+            updateParticlesTheme();
+        });
+
+        // Mettre à jour les particules lors du redimensionnement de la fenêtre
+        window.addEventListener('resize', function() {
             if (window.pJSDom && window.pJSDom[0]) {
-                const backgroundColor = getComputedStyle(document.documentElement)
-                    .getPropertyValue('--color-canvas-default').trim();
-                window.pJSDom[0].pJS.particles.line_linked.color = '#40c463';
-                window.pJSDom[0].pJS.particles.color.value = '#40c463';
-                window.pJSDom[0].pJS.fn.particlesRefresh();
+                window.pJSDom[0].pJS.fn.vendors.destroypJS();
+                particlesJS('particles-js', particlesConfig);
             }
         });
     </script>
