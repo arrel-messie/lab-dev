@@ -244,15 +244,17 @@ const styles = `
         height: 100vh;
         position: relative;
         z-index: 1;
+        width: 100%;
     }
 
     /* Sidebar */
     .sidebar {
         width: 296px;
+        min-width: 296px;
         background: var(--color-canvas-default);
         border-right: 1px solid var(--color-border-default);
         overflow-y: auto;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition: all 0.3s ease;
         transform: translateX(0);
         display: flex;
         flex-direction: column;
@@ -260,6 +262,9 @@ const styles = `
 
     .sidebar.hidden {
         transform: translateX(-100%);
+        width: 0;
+        min-width: 0;
+        border-right: none;
     }
 
     .content-header {
@@ -271,6 +276,7 @@ const styles = `
         gap: var(--spacing-3);
         border-bottom: 1px solid var(--color-border-default);
         margin-bottom: var(--spacing-3);
+        transition: all 0.3s ease;
     }
 
     .header-title-section {
@@ -335,12 +341,12 @@ const styles = `
         overflow-y: auto;
         padding: var(--spacing-3);
         background: var(--color-canvas-default);
-        transition: margin-left 0.3s ease;
-        margin-left: 0;
+        transition: all 0.3s ease;
+        width: calc(100% - 296px);
     }
 
     .main-content.expanded {
-        margin-left: 0;
+        width: 100%;
     }
 
     .content-title {
@@ -380,7 +386,7 @@ const styles = `
     .items-list {
         display: grid;
         gap: var(--spacing-3);
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
         margin-top: var(--spacing-3);
     }
 
@@ -407,12 +413,23 @@ const styles = `
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
         }
 
+        .sidebar.hidden {
+            transform: translateX(-100%);
+            box-shadow: none;
+        }
+
         .main-content {
+            width: 100%;
             margin-left: 0;
+            padding-top: 60px; /* Espace pour le bouton toggle */
         }
 
         .main-content.expanded {
-            margin-left: 0;
+            width: 100%;
+        }
+
+        .content-header {
+            margin-top: 0;
         }
     }
 
@@ -634,6 +651,23 @@ const styles = `
     .sidebar-toggle.active svg {
         transform: rotate(180deg);
     }
+
+    /* Items List Responsive */
+    @media (max-width: 480px) {
+        .items-list {
+            grid-template-columns: 1fr;
+        }
+
+        .content-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: var(--spacing-2);
+        }
+
+        .header-title-section {
+            width: 100%;
+        }
+    }
 `;
 
 // Lire le contenu de particles.js
@@ -746,7 +780,7 @@ function getItemIcon(itemName) {
     return icons.default;
 }
 
-// Modifier la fonction generateMainContentHTML pour inclure les icônes
+// Modifier la fonction generateMainContentHTML pour inclure le rendu Mermaid
 function generateMainContentHTML(structure) {
     let html = '';
     
@@ -859,6 +893,7 @@ const completeHTML = `
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Technique</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <style>${styles}</style>
 </head>
 <body>
@@ -972,6 +1007,36 @@ const completeHTML = `
         </div>
     </footer>
     <script>
+        // Configuration de Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+
+        // Fonction pour rendre les diagrammes Mermaid
+        function renderMermaidDiagrams() {
+            document.querySelectorAll('.mermaid').forEach(element => {
+                try {
+                    mermaid.render('mermaid-' + Math.random(), element.textContent).then(result => {
+                        element.innerHTML = result.svg;
+                    });
+                } catch (error) {
+                    console.error('Erreur lors du rendu du diagramme Mermaid:', error);
+                }
+            });
+        }
+
+        // Rendre les diagrammes après le chargement du DOM
+        document.addEventListener('DOMContentLoaded', function() {
+            renderMermaidDiagrams();
+        });
+
         ${particlesJSContent}
 
         // Configuration des particules
@@ -1221,8 +1286,12 @@ const completeHTML = `
                 const notesContent = card.querySelector('.notes-content');
                 
                 if (notesSection && notesContent) {
+                    // Remplacer le contenu des notes
                     notesContent.innerHTML = notes;
                     notesSection.style.display = 'block';
+                    
+                    // Rendre les diagrammes Mermaid après l'insertion du contenu
+                    renderMermaidDiagrams();
                 }
             });
         });

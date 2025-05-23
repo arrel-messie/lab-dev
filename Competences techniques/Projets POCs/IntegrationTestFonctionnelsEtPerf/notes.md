@@ -2,7 +2,7 @@
 
 ## Schéma du Flux de Travail
 
-```mermaid
+<div class="mermaid">
 graph TD
     subgraph "Phase 1: Déclenchement"
         A[Utilisateur] -->|Déclenche| B[Pipeline CI/CD]
@@ -47,7 +47,7 @@ graph TD
     style G fill:#bbf,stroke:#333,stroke-width:2px
     style H fill:#bfb,stroke:#333,stroke-width:2px
     style I fill:#fbb,stroke:#333,stroke-width:2px
-```
+</div>
 
 ## Description des Composants
 
