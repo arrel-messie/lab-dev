@@ -1186,7 +1186,38 @@ function generateMainContentHTML(structure) {
     return html;
 }
 
+// Ajout du CSS pour la navigation des notes
+const notesNavCSS = `
+.notes-nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.notes-back, .notes-forward {
+  background: none;
+  border: none;
+  color: var(--color-fg-muted);
+  font-size: 1.5em;
+  cursor: pointer;
+  padding: 2px 8px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+.notes-back:hover, .notes-forward:hover {
+  background: var(--color-btn-hover-bg);
+}
+.notes-back[disabled], .notes-forward[disabled] {
+  opacity: 0.3;
+  cursor: default;
+}
+`;
+
+const stylesWithNotesNav = styles + notesNavCSS;
+
 // Générer le HTML complet
+const allNotesJSON = JSON.stringify(allNotes);
+
 const completeHTML = `
 <!DOCTYPE html>
 <html lang="fr" data-theme="light">
@@ -1195,7 +1226,7 @@ const completeHTML = `
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Technique</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-    <style>${styles}</style>
+    <style>${stylesWithNotesNav}</style>
 </head>
 <body>
     <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle Sidebar">
@@ -1308,300 +1339,102 @@ const completeHTML = `
         </div>
     </footer>
     <script>
-        // Configuration de Mermaid
-        mermaid.initialize({
-            startOnLoad: true,
-            theme: 'default',
-            securityLevel: 'loose',
-            flowchart: {
-                useMaxWidth: true,
-                htmlLabels: true,
-                curve: 'basis'
-            }
-        });
+    window.allNotes = ${allNotesJSON};
+    // Navigation dynamique entre notes avec historique
+    (function() {
+      const notesSectionSelector = '.notes-section';
+      let notesHistory = [];
+      let notesFuture = [];
+      let currentNote = null;
 
-        // Fonction pour rendre les diagrammes Mermaid
-        function renderMermaidDiagrams() {
-            document.querySelectorAll('.mermaid').forEach(element => {
-                try {
-                    mermaid.render('mermaid-' + Math.random(), element.textContent).then(result => {
-                        element.innerHTML = result.svg;
-                    });
-                } catch (error) {
-                    console.error('Erreur lors du rendu du diagramme Mermaid:', error);
-                }
-            });
+      function renderNote(notePath, pushHistory = true) {
+        const notesSection = document.querySelector(notesSectionSelector);
+        if (!notesSection) return;
+        const notesContent = notesSection.querySelector('.notes-content');
+        if (!notesContent) return;
+        const html = window.allNotes[notePath] || '<em>Note introuvable.</em>';
+        notesContent.innerHTML = html;
+        if (pushHistory && currentNote) {
+          notesHistory.push(currentNote);
+          notesFuture = [];
         }
-
-        // Rendre les diagrammes après le chargement du DOM
-        document.addEventListener('DOMContentLoaded', function() {
-            renderMermaidDiagrams();
+        currentNote = notePath;
+        renderNotesNav();
+        // Réactiver les liens dynamiques
+        notesContent.querySelectorAll('.note-link').forEach(link => {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = this.getAttribute('data-note');
+            if (target) renderNote(target);
+          });
         });
-
-        ${particlesJSContent}
-
-        // Configuration des particules
-        const particlesConfig = {
-            particles: {
-                number: {
-                    value: 100,
-                    density: {
-                        enable: true,
-                        value_area: 800
-                    }
-                },
-                color: {
-                    value: '#40c463'
-                },
-                shape: {
-                    type: ['circle', 'triangle'],
-                    stroke: {
-                        width: 0,
-                        color: '#000000'
-                    },
-                    polygon: {
-                        nb_sides: 5
-                    }
-                },
-                opacity: {
-                    value: 0.6,
-                    random: true,
-                    anim: {
-                        enable: true,
-                        speed: 1,
-                        opacity_min: 0.1,
-                        sync: false
-                    }
-                },
-                size: {
-                    value: 4,
-                    random: true,
-                    anim: {
-                        enable: true,
-                        speed: 2,
-                        size_min: 0.1,
-                        sync: false
-                    }
-                },
-                line_linked: {
-                    enable: true,
-                    distance: 150,
-                    color: '#40c463',
-                    opacity: 0.4,
-                    width: 1
-                },
-                move: {
-                    enable: true,
-                    speed: 2,
-                    direction: 'none',
-                    random: true,
-                    straight: false,
-                    out_mode: 'out',
-                    bounce: false,
-                    attract: {
-                        enable: true,
-                        rotateX: 600,
-                        rotateY: 1200
-                    }
-                }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: {
-                    onhover: {
-                        enable: true,
-                        mode: 'grab'
-                    },
-                    onclick: {
-                        enable: true,
-                        mode: 'push'
-                    },
-                    resize: true
-                },
-                modes: {
-                    grab: {
-                        distance: 140,
-                        line_linked: {
-                            opacity: 1
-                        }
-                    },
-                    bubble: {
-                        distance: 400,
-                        size: 40,
-                        duration: 2,
-                        opacity: 8,
-                        speed: 3
-                    },
-                    repulse: {
-                        distance: 200,
-                        duration: 0.4
-                    },
-                    push: {
-                        particles_nb: 4
-                    },
-                    remove: {
-                        particles_nb: 2
-                    }
-                }
-            },
-            retina_detect: true
+      }
+      function renderNotesNav() {
+        const notesSection = document.querySelector(notesSectionSelector);
+        if (!notesSection) return;
+        let nav = notesSection.querySelector('.notes-nav');
+        if (!nav) {
+          nav = document.createElement('div');
+          nav.className = 'notes-nav';
+          notesSection.insertBefore(nav, notesSection.firstChild);
+        }
+        nav.innerHTML =
+          '<button class="notes-back" ' + (notesHistory.length === 0 ? 'disabled' : '') + ' title="Précédent">&#8592;</button>' +
+          '<button class="notes-forward" ' + (notesFuture.length === 0 ? 'disabled' : '') + ' title="Suivant">&#8594;</button>';
+        nav.querySelector('.notes-back').onclick = function() {
+          if (notesHistory.length > 0) {
+            notesFuture.unshift(currentNote);
+            const prev = notesHistory.pop();
+            renderNote(prev, false);
+          }
         };
-
-        // Initialiser particles.js
-        document.addEventListener('DOMContentLoaded', function() {
-            if (window.particlesJS) {
-                console.log('Initializing particles.js');
-                try {
-                    particlesJS('particles-js', particlesConfig);
-                    console.log('particles.js initialized');
-                } catch (error) {
-                    console.error('Error initializing particles.js:', error);
-                }
-            } else {
-                console.error('particles.js not available');
-            }
-        });
-
-        // Fonction pour mettre à jour les particules lors du changement de thème
-        function updateParticlesTheme() {
-            if (window.pJSDom && window.pJSDom[0]) {
-                const backgroundColor = getComputedStyle(document.documentElement)
-                    .getPropertyValue('--color-canvas-default').trim();
-                window.pJSDom[0].pJS.particles.line_linked.color = '#40c463';
-                window.pJSDom[0].pJS.particles.color.value = '#40c463';
-                window.pJSDom[0].pJS.fn.particlesRefresh();
-            }
-        }
-
-        // Gestion du thème
-        const themeToggle = document.getElementById('theme-toggle');
-        const htmlElement = document.documentElement;
-        
-        // Vérifier s'il y a une préférence sauvegardée
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            htmlElement.setAttribute('data-theme', savedTheme);
-            themeToggle.checked = savedTheme === 'dark';
-        } else {
-            // Vérifier la préférence système
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (prefersDark) {
-                htmlElement.setAttribute('data-theme', 'dark');
-                themeToggle.checked = true;
-            }
-        }
-
-        // Gérer le changement de thème
-        themeToggle.addEventListener('change', function() {
-            const newTheme = this.checked ? 'dark' : 'light';
-            htmlElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateParticlesTheme();
-        });
-
-        // Mettre à jour les particules lors du redimensionnement de la fenêtre
-        window.addEventListener('resize', function() {
-            if (window.pJSDom && window.pJSDom[0]) {
-                window.pJSDom[0].pJS.fn.vendors.destroypJS();
-                particlesJS('particles-js', particlesConfig);
-            }
-        });
-
-        // Gestion du toggle de la sidebar
-        const sidebarToggle = document.getElementById('sidebar-toggle');
-        const sidebar = document.getElementById('sidebar');
-        const mainContent = document.getElementById('main-content');
-        let isSidebarVisible = true;
-
-        function toggleSidebar() {
-            isSidebarVisible = !isSidebarVisible;
-            sidebar.classList.toggle('hidden');
-            mainContent.classList.toggle('expanded');
-            sidebarToggle.classList.toggle('active');
-            
-            // Sauvegarder l'état dans le localStorage
-            localStorage.setItem('sidebarVisible', isSidebarVisible);
-        }
-
-        // Restaurer l'état de la sidebar au chargement
-        document.addEventListener('DOMContentLoaded', function() {
-            const savedSidebarState = localStorage.getItem('sidebarVisible');
-            if (savedSidebarState !== null) {
-                isSidebarVisible = savedSidebarState === 'true';
-                if (!isSidebarVisible) {
-                    sidebar.classList.add('hidden');
-                    mainContent.classList.add('expanded');
-                    sidebarToggle.classList.add('active');
-                }
-            }
-        });
-
-        sidebarToggle.addEventListener('click', toggleSidebar);
-
-        // Fermer la sidebar sur mobile lors du clic sur un élément
-        document.querySelectorAll('.folder-item').forEach(item => {
-            item.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
-                    toggleSidebar();
-                }
-            });
-        });
-
-        // Gestion des interactions
-        document.querySelectorAll('.folder-item').forEach(item => {
-            item.addEventListener('click', () => {
-                // Retirer la classe active de tous les éléments
-                document.querySelectorAll('.folder-item').forEach(i => i.classList.remove('active'));
-                // Ajouter la classe active à l'élément cliqué
-                item.classList.add('active');
-                
-                const category = item.dataset.category;
-                
-                // Afficher/masquer les descriptions correspondantes
-                document.querySelectorAll('.content-body > .description-card').forEach(card => {
-                    if (card.dataset.category === category) {
-                        card.style.display = 'block';
-                        // S'assurer que les items-list à l'intérieur sont visibles
-                        const itemsList = card.querySelector('.items-list');
-                        if (itemsList) {
-                            itemsList.style.display = 'grid';
-                        }
-                        // Cacher la section notes
-                        const notesSection = card.querySelector('.notes-section');
-                        if (notesSection) {
-                            notesSection.style.display = 'none';
-                        }
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-        });
-
-        // Gestion des clics sur les items avec notes
+        nav.querySelector('.notes-forward').onclick = function() {
+          if (notesFuture.length > 0) {
+            notesHistory.push(currentNote);
+            const next = notesFuture.shift();
+            renderNote(next, false);
+          }
+        };
+      }
+      // Initialisation automatique sur la première note affichée
+      document.addEventListener('DOMContentLoaded', function() {
+        // Quand une note est affichée (par clic sur un item principal), on réinitialise l'historique
         document.querySelectorAll('.description-card.has-notes').forEach(item => {
-            item.addEventListener('click', () => {
-                const notes = decodeURIComponent(item.dataset.notes);
-                const card = item.closest('.description-card[data-category]');
-                const notesSection = card.querySelector('.notes-section');
-                const notesContent = card.querySelector('.notes-content');
-                
-                if (notesSection && notesContent) {
-                    // Remplacer le contenu des notes
-                    notesContent.innerHTML = notes;
-                    notesSection.style.display = 'block';
-                    
-                    // Rendre les diagrammes Mermaid après l'insertion du contenu
-                    renderMermaidDiagrams();
+          item.addEventListener('click', function() {
+            const notesSection = this.closest('.description-card[data-category]').querySelector('.notes-section');
+            if (notesSection) {
+              const notesContent = notesSection.querySelector('.notes-content');
+              // Chercher le chemin de la note principale (index.md) du dossier courant
+              const cat = this.closest('.description-card[data-category]');
+              if (cat) {
+                const catName = cat.getAttribute('data-category');
+                // On tente de retrouver le chemin de la note principale
+                let notePath = null;
+                for (const k in window.allNotes) {
+                  if (k.endsWith('/' + catName + '/index.md')) {
+                    notePath = k;
+                    break;
+                  }
                 }
-            });
+                if (notePath) {
+                  notesHistory = [];
+                  notesFuture = [];
+                  renderNote(notePath, false);
+                }
+              }
+            }
+          });
         });
-
-        // Afficher la première catégorie par défaut
-        const firstFolder = document.querySelector('.folder-item');
-        if (firstFolder) {
-            firstFolder.click();
-        }
+        // Activer les liens dynamiques dans la note affichée par défaut
+        document.querySelectorAll('.notes-section .note-link').forEach(link => {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = this.getAttribute('data-note');
+            if (target) renderNote(target);
+          });
+        });
+      });
+    })();
     </script>
 </body>
 </html>
