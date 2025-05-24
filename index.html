@@ -1606,19 +1606,19 @@
     </footer>
     <script>
     window.allNotes = {};
-    // Navigation dynamique entre notes avec historique
     (function() {
-      const notesSectionSelector = '.notes-section';
-      let notesHistory = [];
-      let notesFuture = [];
-      let currentNote = null;
+      var notesSectionSelector = '.notes-section';
+      var notesHistory = [];
+      var notesFuture = [];
+      var currentNote = null;
 
-      function renderNote(notePath, pushHistory = true) {
-        const notesSection = document.querySelector(notesSectionSelector);
+      function renderNote(notePath, pushHistory) {
+        if (pushHistory === undefined) pushHistory = true;
+        var notesSection = document.querySelector(notesSectionSelector);
         if (!notesSection) return;
-        const notesContent = notesSection.querySelector('.notes-content');
+        var notesContent = notesSection.querySelector('.notes-content');
         if (!notesContent) return;
-        const html = window.allNotes[notePath] || '<em>Note introuvable.</em>';
+        var html = window.allNotes[notePath] || '<em>Note introuvable.</em>';
         notesContent.innerHTML = html;
         if (pushHistory && currentNote) {
           notesHistory.push(currentNote);
@@ -1627,18 +1627,19 @@
         currentNote = notePath;
         renderNotesNav();
         // Réactiver les liens dynamiques
-        notesContent.querySelectorAll('.note-link').forEach(link => {
-          link.addEventListener('click', function(e) {
+        var links = notesContent.querySelectorAll('.note-link');
+        for (var i = 0; i < links.length; i++) {
+          links[i].addEventListener('click', function(e) {
             e.preventDefault();
-            const target = this.getAttribute('data-note');
+            var target = this.getAttribute('data-note');
             if (target) renderNote(target);
           });
-        });
+        }
       }
       function renderNotesNav() {
-        const notesSection = document.querySelector(notesSectionSelector);
+        var notesSection = document.querySelector(notesSectionSelector);
         if (!notesSection) return;
-        let nav = notesSection.querySelector('.notes-nav');
+        var nav = notesSection.querySelector('.notes-nav');
         if (!nav) {
           nav = document.createElement('div');
           nav.className = 'notes-nav';
@@ -1650,33 +1651,30 @@
         nav.querySelector('.notes-back').onclick = function() {
           if (notesHistory.length > 0) {
             notesFuture.unshift(currentNote);
-            const prev = notesHistory.pop();
+            var prev = notesHistory.pop();
             renderNote(prev, false);
           }
         };
         nav.querySelector('.notes-forward').onclick = function() {
           if (notesFuture.length > 0) {
             notesHistory.push(currentNote);
-            const next = notesFuture.shift();
+            var next = notesFuture.shift();
             renderNote(next, false);
           }
         };
       }
-      // Initialisation automatique sur la première note affichée
       document.addEventListener('DOMContentLoaded', function() {
         // Quand une note est affichée (par clic sur un item principal), on réinitialise l'historique
-        document.querySelectorAll('.description-card.has-notes').forEach(item => {
-          item.addEventListener('click', function() {
-            const notesSection = this.closest('.description-card[data-category]').querySelector('.notes-section');
+        var items = document.querySelectorAll('.description-card.has-notes');
+        for (var i = 0; i < items.length; i++) {
+          items[i].addEventListener('click', function() {
+            var notesSection = this.closest('.description-card[data-category]').querySelector('.notes-section');
             if (notesSection) {
-              const notesContent = notesSection.querySelector('.notes-content');
-              // Chercher le chemin de la note principale (index.md) du dossier courant
-              const cat = this.closest('.description-card[data-category]');
+              var cat = this.closest('.description-card[data-category]');
               if (cat) {
-                const catName = cat.getAttribute('data-category');
-                // On tente de retrouver le chemin de la note principale
-                let notePath = null;
-                for (const k in window.allNotes) {
+                var catName = cat.getAttribute('data-category');
+                var notePath = null;
+                for (var k in window.allNotes) {
                   if (k.endsWith('/' + catName + '/index.md')) {
                     notePath = k;
                     break;
@@ -1690,15 +1688,16 @@
               }
             }
           });
-        });
+        }
         // Activer les liens dynamiques dans la note affichée par défaut
-        document.querySelectorAll('.notes-section .note-link').forEach(link => {
-          link.addEventListener('click', function(e) {
+        var defaultLinks = document.querySelectorAll('.notes-section .note-link');
+        for (var i = 0; i < defaultLinks.length; i++) {
+          defaultLinks[i].addEventListener('click', function(e) {
             e.preventDefault();
-            const target = this.getAttribute('data-note');
+            var target = this.getAttribute('data-note');
             if (target) renderNote(target);
           });
-        });
+        }
       });
     })();
     </script>
