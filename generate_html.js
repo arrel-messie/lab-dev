@@ -44,15 +44,15 @@ function scanDirectory(dirPath) {
 }
 
 // Fonction pour lire le contenu Markdown des notes
-function getNotes(folderPath) {
+const allNotes = {};
+
+function getNotes(folderPath, noteFile = 'index.md') {
     try {
-        const notesPath = path.join(folderPath, 'notes.md');
+        const notesPath = path.join(folderPath, noteFile);
         if (fs.existsSync(notesPath)) {
-            console.log(`Reading notes from: ${notesPath}`);
             const content = fs.readFileSync(notesPath, 'utf8');
-            // Si le contenu contient un diagramme Mermaid, le remplacer par le HTML/CSS custom
-            if (content.includes('```mermaid')) {
-                const htmlDiagram = `
+            // Remplacement des liens spéciaux [texte](note:chemin)
+            const htmlDiagram = `
 <div class="custom-diagram">
   <div class="diagram-row">
     <div class="diagram-box">VCS<br><span class="diagram-sub">Git, SVN, etc.</span></div>
@@ -196,11 +196,17 @@ function getNotes(folderPath) {
   .diagram-spacer { width: 40px; }
 }
                 `;
-                // Remplacer le diagramme Mermaid par le HTML/CSS custom
-                const contentWithoutMermaid = content.replace(/```mermaid[\s\S]*?```/, htmlDiagram);
-                return marked.parse(contentWithoutMermaid);
+            let parsed = content.replace(/\[([^\]]+)\]\(note:([^\)]+)\)/g, (match, text, notePath) => {
+                return `<a href="#" class="note-link" data-note="${notePath}">${text}</a>`;
+            });
+            // Remplacement du diagramme Mermaid si besoin
+            if (parsed.includes('```mermaid')) {
+                parsed = parsed.replace(/```mermaid[\s\S]*?```/, htmlDiagram);
             }
-            return marked.parse(content);
+            const html = marked.parse(parsed);
+            // Stocker la note dans allNotes
+            allNotes[notesPath.replace(/\\/g, '/')] = html;
+            return html;
         }
     } catch (error) {
         console.error(`Erreur lors de la lecture des notes dans ${folderPath}:`, error);
